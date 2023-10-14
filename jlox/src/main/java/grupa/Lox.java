@@ -10,10 +10,6 @@ public class Lox {
     static boolean hadError = false;
 
     public static void main(String[] args) throws IOException {
-        String x = "abc";
-        System.out.println(x.charAt(0));
-
-
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
             System.exit(64);
@@ -55,13 +51,14 @@ public class Lox {
     }
 
     /*@TODO
-    Add better error handling. E.g Column, Argument list, etc
+        - Add better error handling. E.g Column, Argument list, etc
+        - Fix: Each Unexpected character gets reported separately -> Couple them together to one error message
     */
-    static void error(String line, String message) {
+    static void error(int line, String message) {
         report(line, "", message);
     }
 
-    private static void report(String line, String where, String message) {
+    private static void report(int line, String where, String message) {
         System.err.println("[line " + line + "] Error" + where + ": " + message);
     }
 }

@@ -35,7 +35,7 @@ public class Scanner {
                 addToken(TokenType.LEFT_BRACE);
                 break;
             case ']':
-                addToken(TokenType.RIGHT_PAREN);
+                addToken(TokenType.RIGHT_BRACE);
                 break;
             case ',':
                 addToken(TokenType.COMMA);
@@ -55,6 +55,33 @@ public class Scanner {
             case '*':
                 addToken(TokenType.STAR);
                 break;
+            case '!':
+                addToken(match('=') ? TokenType.BANGEQUAL : TokenType.BANG);
+                break;
+            case '<':
+                addToken(match('=') ? TokenType.LESS_EQUAL : TokenType.LESS);
+                break;
+            case '>':
+                addToken(match('=') ? TokenType.GREATER_EQUAL : TokenType.GREATER);
+                break;
+            case '=':
+                addToken(match('=') ? TokenType.EQUAL_EQUAL : TokenType.EQUAL);
+                break;
+            case '/':
+                if (match('/')) {
+                    while (peek() != '\n' && !isAtEnd()) advance();
+                } else {
+                    addToken(TokenType.SLASH);
+                }
+            case ' ':
+            case '\r':
+            case '\t':
+                break;
+            case '\n':
+                line++;
+                break;
+            default:
+                Lox.error(line, "Unexpected character");
 
         }
     }
@@ -73,7 +100,21 @@ public class Scanner {
         return current >= source.length();
     }
 
-    private char advance() {
+    public char advance() {
         return source.charAt(current++);
+    }
+
+    private boolean match(char expected) {
+        if (isAtEnd()) {
+            return false;
+        }
+        if (source.charAt(current) != expected) return false;
+        current++;
+        return true;
+    }
+
+    private char peek() {
+        if (isAtEnd()) return '\0';
+        return source.charAt(current);
     }
 }
