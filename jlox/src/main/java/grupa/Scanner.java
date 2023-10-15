@@ -45,7 +45,7 @@ public class Scanner {
             start = current;
             scanToken();
         }
-        return null;
+        return this.tokens;
     }
 
     private void scanToken() {
@@ -114,9 +114,9 @@ public class Scanner {
                     number();
                 } else if (isAlpha(c)) {
                     identifier();
+                } else {
+                    Lox.error(line, "Unexpected character");
                 }
-
-                Lox.error(line, "Unexpected character");
 
         }
     }
@@ -143,7 +143,7 @@ public class Scanner {
             advance();
             while (isDigit(peek())) advance();
         }
-        addToken(NUMBER, Double.parseDouble(source.substring(start + 1, current - 1)));
+        addToken(NUMBER, Double.parseDouble(source.substring(start, current)));
     }
 
     private void identifier() {

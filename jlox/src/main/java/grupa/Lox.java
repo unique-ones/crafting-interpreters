@@ -11,8 +11,6 @@ public class Lox {
 
     public static void main(String[] args) throws IOException {
 
-        String b="'abcde'";
-        var s=b.substring(1,6);
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
             System.exit(64);
@@ -21,8 +19,6 @@ public class Lox {
         } else {
             runPrompt();
         }
-
-
     }
 
     private static void runFile(String path) throws IOException {
