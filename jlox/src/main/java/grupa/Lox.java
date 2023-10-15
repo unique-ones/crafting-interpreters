@@ -10,6 +10,9 @@ public class Lox {
     static boolean hadError = false;
 
     public static void main(String[] args) throws IOException {
+
+        String b="'abcde'";
+        var s=b.substring(1,6);
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
             System.exit(64);
