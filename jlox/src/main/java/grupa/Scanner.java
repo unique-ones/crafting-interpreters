@@ -96,6 +96,9 @@ public class Scanner {
             case '/':
                 if (match('/')) {
                     while (peek() != '\n' && !isAtEnd()) advance();
+                }
+                if (match('*')) {
+                    multiLineComment();
                 } else {
                     addToken(SLASH);
                 }
@@ -118,6 +121,25 @@ public class Scanner {
                     Lox.error(line, "Unexpected character");
                 }
 
+        }
+    }
+
+    private void multiLineComment() {
+        int commentsCount = 1;
+        while (commentsCount != 0 && !isAtEnd()) {
+            if (peek() == '/' && peekNext() == '*') {
+                commentsCount++;
+                advance();
+            } else if (peek() == '*' && peekNext() == '/') {
+                commentsCount--;
+                advance();
+            } else if (peek() == '\n') {
+                line++;
+            }
+            advance();
+        }
+        if (commentsCount > 0) {
+            Lox.error(line, "Multi line comment not closed");
         }
     }
 
@@ -158,7 +180,7 @@ public class Scanner {
     }
 
     private boolean isAlpha(char c) {
-        return (c >= 'a' && c <= 'b') || (c >= 'A' && c <= 'B') || (c == '_');
+        return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '_');
     }
 
     private boolean isAlphaNumeric(char c) {
@@ -166,7 +188,9 @@ public class Scanner {
     }
 
     private char peekNext() {
-        if (source.charAt(current + 1) >= source.length()) return '\0';
+        if (current + 1 >= source.length()) {
+            return '\0';
+        }
         return source.charAt(current + 1);
     }
 
