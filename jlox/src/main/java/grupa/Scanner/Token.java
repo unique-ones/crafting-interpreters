@@ -1,4 +1,4 @@
-package grupa;
+package grupa.Scanner;
 
 public class Token {
     private final String lexeme;

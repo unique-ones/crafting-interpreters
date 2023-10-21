@@ -1,8 +1,8 @@
 package grupa.tools;
 
 import grupa.Expressions.*;
-import grupa.Token;
-import grupa.TokenType;
+import grupa.Scanner.Token;
+import grupa.Scanner.TokenType;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class AstPrinter implements Visitor<String> {
         System.out.println(new AstPrinter().print(expression));
     }
 
-    String print(Expression expression) {
+    public String print(Expression expression) {
         return expression.accept(this);
     }
 

@@ -1,5 +1,12 @@
 package grupa;
 
+import grupa.Expressions.Expression;
+import grupa.Parser.Parser;
+import grupa.Scanner.Scanner;
+import grupa.Scanner.Token;
+import grupa.Scanner.TokenType;
+import grupa.tools.AstPrinter;
+
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -43,18 +50,25 @@ public class Lox {
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
+        Expression expression= new Parser(tokens).parse();
 
-        for (Token token : tokens) {
-            System.out.println(token);
-        }
+        System.out.println(new AstPrinter().print(expression));
     }
 
     /*@TODO
         - Add better error handling. E.g Column, Argument list, etc
         - Fix: Each Unexpected character gets reported separately -> Couple them together to one error message
     */
-    static void error(int line, String message) {
+    public static void error(int line, String message) {
         report(line, "", message);
+    }
+
+    public static void error(Token token, String message) {
+        if (token.getType() == TokenType.EOF) {
+            report(token.getLine(), " at end", message);
+        } else {
+            report(token.getLine(), " at '" + token.getLexeme() + "'", message);
+        }
     }
 
     private static void report(int line, String where, String message) {

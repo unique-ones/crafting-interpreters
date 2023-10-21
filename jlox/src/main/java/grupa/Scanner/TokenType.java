@@ -1,4 +1,4 @@
-package grupa;
+package grupa.Scanner;
 
 public enum TokenType {
     //Single char tokens

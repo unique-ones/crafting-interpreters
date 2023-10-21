@@ -1,6 +1,6 @@
 package grupa.Expressions;
 
-import grupa.Token;
+import grupa.Scanner.Token;
 
 public class Unary extends Expression {
     final Token operator;

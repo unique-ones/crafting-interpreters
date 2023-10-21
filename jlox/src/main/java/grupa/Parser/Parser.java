@@ -1,6 +1,9 @@
-package grupa;
+package grupa.Parser;
 
 import grupa.Expressions.*;
+import grupa.Lox;
+import grupa.Scanner.Token;
+import grupa.Scanner.TokenType;
 
 import java.util.List;
 
@@ -11,6 +14,15 @@ public class Parser {
 
     public Parser(List<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public Expression parse() {
+        try {
+            return expression();
+        } catch (ParseError error) {
+            return null;
+        }
+
     }
 
     private Expression expression() {
@@ -40,8 +52,18 @@ public class Parser {
         }
         return expression;
     }
-
     private Expression term() {
+        Expression expression = factor();
+        while (match(TokenType.PLUS, TokenType.MINUS)) {
+            Token operator = previous();
+            Expression right = factor();
+            expression = new Binary(expression, operator, right);
+
+        }
+        return expression;
+    }
+
+    private Expression factor() {
         Expression expression = unary();
 
         while (match(TokenType.SLASH, TokenType.STAR)) {
@@ -54,7 +76,7 @@ public class Parser {
     }
 
     private Expression unary() {
-        if (match(TokenType.BANG, TokenType.MINUS)) {
+         if (match(TokenType.BANG, TokenType.MINUS)) {
             Token operator = previous();
             Expression right = unary();
             return new Unary(operator, right);
@@ -63,23 +85,28 @@ public class Parser {
     }
 
     private Expression primary() {
-        if(match(TokenType.FALSE)) return new Literal(false);
-        if(match(TokenType.TRUE)) return new Literal(true);
-        if(match(TokenType.NIL)) return new Literal(null);
-        if(match(TokenType.NUMBER,TokenType.STRING)) return new Literal(previous().getLexeme());
+        if (match(TokenType.FALSE)) return new Literal(false);
+        if (match(TokenType.TRUE)) return new Literal(true);
+        if (match(TokenType.NIL)) return new Literal(null);
+        if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLexeme());
 
-        if(match(TokenType.LEFT_PAREN)){
-            Expression expression= expression();
-            consume(TokenType.RIGHT_PAREN,"Exprect ')' after exprssion.");
+        if (match(TokenType.LEFT_PAREN)) {
+            Expression expression = expression();
+            consume(TokenType.RIGHT_PAREN, "Exprect ')' after exprssion.");
             return new Grouping(expression);
         }
-
-
-
+        throw error(peek(), "Expression expected");
     }
 
-    private void consume(TokenType rightParen, String s) {
+    private Token consume(TokenType type, String errorMessage) {
+        if (check(type)) return advance();
 
+        throw new ParseError();
+    }
+
+    private boolean check(TokenType type) {
+        if (isAtEnd()) return false;
+        return peek().getType() == type;
     }
 
     private Token previous() {
@@ -107,6 +134,12 @@ public class Parser {
 
     private Token peek() {
         return this.tokens.get(current);
+    }
+
+
+    private ParseError error(Token token, String message) {
+        Lox.error(token, message);
+        return new ParseError();
     }
 
 
