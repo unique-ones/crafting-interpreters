@@ -1,7 +1,7 @@
 package grupa;
 
 import grupa.Expressions.Expression;
-import grupa.Parser.Parser;
+import grupa.Parser.Ast;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
@@ -17,6 +17,7 @@ public class Lox {
     static boolean hadError = false;
 
     public static void main(String[] args) throws IOException {
+        String a=";asd";
 
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
@@ -49,7 +50,7 @@ public class Lox {
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
-        Expression expression= new Parser(tokens).parse();
+        Expression expression= new Ast(tokens).parse();
         if(hadError) return;
         System.out.println(new AstPrinter().print(expression));
     }

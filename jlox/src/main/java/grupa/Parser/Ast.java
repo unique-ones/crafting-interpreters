@@ -7,12 +7,12 @@ import grupa.Scanner.TokenType;
 
 import java.util.List;
 
-public class Parser {
+public class Ast {
 
     private final List<Token> tokens;
     private int current = 0;
 
-    public Parser(List<Token> tokens) {
+    public Ast(List<Token> tokens) {
         this.tokens = tokens;
     }
 
@@ -26,7 +26,7 @@ public class Parser {
     }
 
     private Expression expression() {
-        return equality();
+        return condition();
     }
 
     private Expression condition() {
@@ -104,7 +104,7 @@ public class Parser {
 
         if (match(TokenType.LEFT_PAREN)) {
             Expression expression = expression();
-            consume(TokenType.RIGHT_PAREN, "Exprect ')' after exprssion.");
+            consume(TokenType.RIGHT_PAREN, "Expected ')' after expression.");
             return new Grouping(expression);
         }
         throw error(peek(), "Expression expected");
@@ -128,7 +128,7 @@ public class Parser {
 
     private boolean match(TokenType... types) {
         for (var type : types) {
-            if (tokens.get(current).getType() == type) {
+            if (check(type)) {
                 advance();
                 return true;
             }
