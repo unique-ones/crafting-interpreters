@@ -29,6 +29,17 @@ public class Parser {
         return equality();
     }
 
+    private Expression condition() {
+        Expression condition = equality();
+        if (match(TokenType.QUESTION)) {
+            Expression trueBranch = expression();
+            consume(TokenType.COLON, "Expected ':' for conditional expression");
+            Expression falseBranch = expression();
+            condition = new Conditional(condition, trueBranch, falseBranch);
+        }
+        return condition;
+    }
+
     private Expression equality() {
         Expression expression = comparison();
 
@@ -52,6 +63,7 @@ public class Parser {
         }
         return expression;
     }
+
     private Expression term() {
         Expression expression = factor();
         while (match(TokenType.PLUS, TokenType.MINUS)) {
@@ -76,7 +88,7 @@ public class Parser {
     }
 
     private Expression unary() {
-         if (match(TokenType.BANG, TokenType.MINUS)) {
+        if (match(TokenType.BANG, TokenType.MINUS)) {
             Token operator = previous();
             Expression right = unary();
             return new Unary(operator, right);
@@ -101,7 +113,8 @@ public class Parser {
     private Token consume(TokenType type, String errorMessage) {
         if (check(type)) return advance();
 
-        throw new ParseError();
+        throw error(peek(), errorMessage);
+
     }
 
     private boolean check(TokenType type) {
@@ -140,6 +153,26 @@ public class Parser {
     private ParseError error(Token token, String message) {
         Lox.error(token, message);
         return new ParseError();
+    }
+
+    private void synchronize() {
+        advance();
+
+        while (!isAtEnd()) {
+            if (previous().getType() == TokenType.SEMICOLON) return;
+            switch (peek().getType()) {
+                case CLASS:
+                case IF:
+                case PRINT:
+                case FUN:
+                case FOR:
+                case WHILE:
+                case VAR:
+                case RETURN:
+                    return;
+            }
+            advance();
+        }
     }
 
 

@@ -11,8 +11,8 @@ public class AstPrinter implements Visitor<String> {
 
     public static void main(String[] args) {
         //Expression expression = new Binary(new Grouping(new Binary(new Literal(1),new Token("-", TokenType.MINUS,null,1),new Literal(2))), new Token("*", TokenType.STAR, null, 1), new Literal(2));
-        Expression expression = new Binary(new Grouping(new Unary(new Token("!", TokenType.BANG, null, 1), new Literal(1))), new Token("*", TokenType.STAR, null, 1), new Literal(2));
-
+        //Expression expression = new Binary(new Grouping(new Unary(new Token("!", TokenType.BANG, null, 1), new Literal(1))), new Token("*", TokenType.STAR, null, 1), new Literal(2));
+        Expression expression = new Conditional(new Binary(new Literal(1),new Token(">",TokenType.GREATER,null,1),new Literal(2)), new Literal(1), new Literal(2));
         System.out.println(new AstPrinter().print(expression));
     }
 
@@ -22,12 +22,12 @@ public class AstPrinter implements Visitor<String> {
 
     @Override
     public String visitBinaryExpression(Binary expression) {
-        return parenthesize(expression.getOperator().getLexeme(), List.of(expression.getLeft(), expression.getRight()));
+        return parenthesize(expression.getOperator().getLexeme(), expression.getLeft(), expression.getRight());
     }
 
     @Override
     public String visitGroupingExpression(Grouping expression) {
-        return parenthesize("grouping", List.of(expression.getExpression()));
+        return parenthesize("grouping", expression.getExpression());
     }
 
     @Override
@@ -38,10 +38,15 @@ public class AstPrinter implements Visitor<String> {
 
     @Override
     public String visitUnaryExpression(Unary expression) {
-        return parenthesize(expression.getOperator().getLexeme(), List.of(expression.getRight()));
+        return parenthesize(expression.getOperator().getLexeme(), expression.getRight());
     }
 
-    private String parenthesize(String name, List<Expression> exprs) {
+    @Override
+    public String visitConditionalExpression(Conditional expression) {
+        return parenthesize("?:", expression.getCondition(), expression.getTrueBranch(), expression.getFalseBranch());
+    }
+
+    private String parenthesize(String name, Expression... exprs) {
         StringBuilder builder = new StringBuilder();
         builder.append("(").append(name);
         for (var expr : exprs) {

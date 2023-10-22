@@ -80,12 +80,19 @@ public class Scanner {
             case ';':
                 addToken(SEMICOLON);
                 break;
+            case '?':
+                addToken(QUESTION);
+                break;
+            case ':':
+                addToken(COLON);
+                break;
             case '*':
                 addToken(STAR);
                 break;
             case '!':
                 addToken(match('=') ? BANGEQUAL : BANG);
                 break;
+
             case '<':
                 addToken(match('=') ? LESS_EQUAL : LESS);
                 break;
