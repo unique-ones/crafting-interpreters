@@ -1,5 +1,6 @@
 package grupa.Expressions;
 
+import grupa.Parser.RuntimeError;
 import grupa.Scanner.Token;
 
 
@@ -27,7 +28,7 @@ public class Binary extends Expression {
     }
 
     @Override
-    public <R> R accept(Visitor<R> visitor) {
+    public <R> R accept(Visitor<R> visitor) throws RuntimeError {
         return visitor.visitBinaryExpression(this);
     }
 }

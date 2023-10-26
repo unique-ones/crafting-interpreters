@@ -1,5 +1,6 @@
 package grupa.Expressions;
 
+import grupa.Parser.RuntimeError;
 import grupa.Scanner.Token;
 
 public class Unary extends Expression {
@@ -13,7 +14,7 @@ public class Unary extends Expression {
 
 
     @Override
-    public <R> R accept(Visitor<R> visitor) {
+    public <R> R accept(Visitor<R> visitor) throws RuntimeError {
         return visitor.visitUnaryExpression(this);
     }
 

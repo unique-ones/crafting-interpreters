@@ -1,5 +1,7 @@
 package grupa.Expressions;
 
+import grupa.Parser.RuntimeError;
+
 public class Grouping extends Expression {
     final Expression expression;
     public Grouping(Expression expression) {
@@ -7,7 +9,7 @@ public class Grouping extends Expression {
     }
 
     @Override
-    public <R> R accept(Visitor<R> visitor) {
+    public <R> R accept(Visitor<R> visitor) throws RuntimeError {
         return visitor.visitGroupingExpression(this);
     }
 

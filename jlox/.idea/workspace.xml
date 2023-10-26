@@ -5,12 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/RuntimeError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Visitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -136,11 +143,27 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
-          <line>153</line>
+          <line>156</line>
           <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
+          <line>61</line>
+          <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="grupa.Expressions.Conditional" memberName="condition" />
+        <PinnedItemInfo parentTag="grupa.Expressions.Binary" memberName="left" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/jlox$Lox.ic" NAME="Lox Coverage Results" MODIFIED="1697974143998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

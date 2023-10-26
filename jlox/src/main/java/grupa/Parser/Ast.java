@@ -29,13 +29,16 @@ public class Ast {
         return condition();
     }
 
+    //@TODO error handling
     private Expression condition() {
         Expression condition = equality();
         if (match(TokenType.QUESTION)) {
+            Token question = previous();
             Expression trueBranch = expression();
             consume(TokenType.COLON, "Expected ':' for conditional expression");
+            Token colon = previous();
             Expression falseBranch = expression();
-            condition = new Conditional(condition, trueBranch, falseBranch);
+            condition = new Conditional(condition, trueBranch, falseBranch, question, colon);
         }
         return condition;
     }
@@ -100,7 +103,7 @@ public class Ast {
         if (match(TokenType.FALSE)) return new Literal(false);
         if (match(TokenType.TRUE)) return new Literal(true);
         if (match(TokenType.NIL)) return new Literal(null);
-        if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLexeme());
+        if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLiteral());
 
         if (match(TokenType.LEFT_PAREN)) {
             Expression expression = expression();
