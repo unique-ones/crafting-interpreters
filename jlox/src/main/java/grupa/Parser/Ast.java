@@ -4,7 +4,11 @@ import grupa.Expressions.*;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
+import grupa.Statements.Expression;
+import grupa.Statements.Print;
+import grupa.Statements.Stmt;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Ast {
@@ -16,101 +20,124 @@ public class Ast {
         this.tokens = tokens;
     }
 
-    public Expression parse() {
+    public List<Stmt> parse() {
         try {
-            return expression();
+            List<Stmt> stmts = new ArrayList<>();
+
+            while (!isAtEnd()) {
+                stmts.add(statement());
+            }
+            return stmts;
         } catch (ParseError error) {
             return null;
         }
 
     }
 
-    private Expression expression() {
+    private Stmt statement() {
+        if (match(TokenType.PRINT)) return printStatement();
+
+        return expressionStatement();
+    }
+
+    private Stmt printStatement() {
+        Expr expr = expression();
+        consume(TokenType.SEMICOLON, "Expected ';' after statement" );
+        return new Print(expr);
+    }
+
+    private Stmt expressionStatement() {
+        Expr expr = expression();
+        consume(TokenType.SEMICOLON, "Expected ';' after statement" );
+        return new Expression(expr);
+    }
+
+    private Expr expression() {
         return condition();
     }
 
     //@TODO error handling
-    private Expression condition() {
-        Expression condition = equality();
+    private Expr condition() {
+        Expr condition = equality();
         if (match(TokenType.QUESTION)) {
             Token question = previous();
-            Expression trueBranch = expression();
-            consume(TokenType.COLON, "Expected ':' for conditional expression");
+            Expr trueBranch = expression();
+            consume(TokenType.COLON, "Expected ':' for conditional expression" );
             Token colon = previous();
-            Expression falseBranch = expression();
+            Expr falseBranch = expression();
             condition = new Conditional(condition, trueBranch, falseBranch, question, colon);
         }
         return condition;
     }
 
-    private Expression equality() {
-        Expression expression = comparison();
+    private Expr equality() {
+        Expr expr = comparison();
 
         while (match(TokenType.BANGEQUAL, TokenType.EQUAL_EQUAL)) {
             Token operator = previous();
-            Expression right = comparison();
-            expression = new Binary(expression, operator, right);
+            Expr right = comparison();
+            expr = new Binary(expr, operator, right);
 
         }
-        return expression;
+        return expr;
     }
 
-    private Expression comparison() {
-        Expression expression = term();
+    private Expr comparison() {
+        Expr expr = term();
 
         while (match(TokenType.GREATER, TokenType.GREATER_EQUAL, TokenType.LESS, TokenType.LESS_EQUAL)) {
             Token operator = previous();
-            Expression right = term();
-            expression = new Binary(expression, operator, right);
+            Expr right = term();
+            expr = new Binary(expr, operator, right);
 
         }
-        return expression;
+        return expr;
     }
 
-    private Expression term() {
-        Expression expression = factor();
+    private Expr term() {
+        Expr expr = factor();
         while (match(TokenType.PLUS, TokenType.MINUS)) {
             Token operator = previous();
-            Expression right = factor();
-            expression = new Binary(expression, operator, right);
+            Expr right = factor();
+            expr = new Binary(expr, operator, right);
 
         }
-        return expression;
+        return expr;
     }
 
-    private Expression factor() {
-        Expression expression = unary();
+    private Expr factor() {
+        Expr expr = unary();
 
         while (match(TokenType.SLASH, TokenType.STAR)) {
             Token operator = previous();
-            Expression right = unary();
-            expression = new Binary(expression, operator, right);
+            Expr right = unary();
+            expr = new Binary(expr, operator, right);
 
         }
-        return expression;
+        return expr;
     }
 
-    private Expression unary() {
+    private Expr unary() {
         if (match(TokenType.BANG, TokenType.MINUS)) {
             Token operator = previous();
-            Expression right = unary();
+            Expr right = unary();
             return new Unary(operator, right);
         }
         return primary();
     }
 
-    private Expression primary() {
+    private Expr primary() {
         if (match(TokenType.FALSE)) return new Literal(false);
         if (match(TokenType.TRUE)) return new Literal(true);
         if (match(TokenType.NIL)) return new Literal(null);
         if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLiteral());
 
         if (match(TokenType.LEFT_PAREN)) {
-            Expression expression = expression();
-            consume(TokenType.RIGHT_PAREN, "Expected ')' after expression.");
-            return new Grouping(expression);
+            Expr expr = expression();
+            consume(TokenType.RIGHT_PAREN, "Expected ')' after expression." );
+            return new Grouping(expr);
         }
-        throw error(peek(), "Expression expected");
+        throw error(peek(), "Expression expected" );
     }
 
     private Token consume(TokenType type, String errorMessage) {

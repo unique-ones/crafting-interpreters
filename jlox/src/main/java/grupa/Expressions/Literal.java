@@ -1,6 +1,6 @@
 package grupa.Expressions;
 
-public class Literal extends Expression {
+public class Literal extends Expr {
     public Literal(Object value) {
         this.value = value;
     }
@@ -8,8 +8,8 @@ public class Literal extends Expression {
     final Object value;
 
     @Override
-    public <R> R accept(Visitor<R> visitor) {
-        return visitor.visitLiteralExpression(this);
+    public <R> R accept(ExprVisitor<R> exprVisitor) {
+        return exprVisitor.visitLiteralExpression(this);
     }
 
     public Object getValue() {

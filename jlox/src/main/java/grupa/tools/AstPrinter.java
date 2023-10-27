@@ -2,12 +2,8 @@ package grupa.tools;
 
 import grupa.Expressions.*;
 import grupa.Parser.RuntimeError;
-import grupa.Scanner.Token;
-import grupa.Scanner.TokenType;
 
-import java.util.List;
-
-public class AstPrinter implements Visitor<String> {
+public class AstPrinter implements ExprVisitor<String> {
 
 
     public static void main(String[] args) throws RuntimeError {
@@ -17,8 +13,8 @@ public class AstPrinter implements Visitor<String> {
         //System.out.println(new AstPrinter().print(expression));
     }
 
-    public String print(Expression expression) throws RuntimeError {
-        return expression.accept(this);
+    public String print(Expr expr) throws RuntimeError {
+        return expr.accept(this);
     }
 
     @Override
@@ -47,7 +43,7 @@ public class AstPrinter implements Visitor<String> {
         return parenthesize("?:", expression.getCondition(), expression.getTrueBranch(), expression.getFalseBranch());
     }
 
-    private String parenthesize(String name, Expression... exprs) throws RuntimeError {
+    private String parenthesize(String name, Expr... exprs) throws RuntimeError {
         StringBuilder builder = new StringBuilder();
         builder.append("(").append(name);
         for (var expr : exprs) {

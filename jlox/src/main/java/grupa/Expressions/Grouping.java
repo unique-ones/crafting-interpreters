@@ -2,18 +2,18 @@ package grupa.Expressions;
 
 import grupa.Parser.RuntimeError;
 
-public class Grouping extends Expression {
-    final Expression expression;
-    public Grouping(Expression expression) {
-        this.expression = expression;
+public class Grouping extends Expr {
+    final Expr expr;
+    public Grouping(Expr expr) {
+        this.expr = expr;
     }
 
     @Override
-    public <R> R accept(Visitor<R> visitor) throws RuntimeError {
-        return visitor.visitGroupingExpression(this);
+    public <R> R accept(ExprVisitor<R> exprVisitor) throws RuntimeError {
+        return exprVisitor.visitGroupingExpression(this);
     }
 
-    public Expression getExpression() {
-        return expression;
+    public Expr getExpression() {
+        return expr;
     }
 }

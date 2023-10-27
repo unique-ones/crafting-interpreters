@@ -4,18 +4,18 @@ import grupa.Parser.RuntimeError;
 import grupa.Scanner.Token;
 
 
-public class Binary extends Expression {
-    final Expression left;
+public class Binary extends Expr {
+    final Expr left;
     final Token operator;
-    final Expression right;
+    final Expr right;
 
-    public Binary(Expression left, Token operator, Expression right) {
+    public Binary(Expr left, Token operator, Expr right) {
         this.left = left;
         this.operator = operator;
         this.right = right;
     }
 
-    public Expression getLeft() {
+    public Expr getLeft() {
         return left;
     }
 
@@ -23,12 +23,12 @@ public class Binary extends Expression {
         return operator;
     }
 
-    public Expression getRight() {
+    public Expr getRight() {
         return right;
     }
 
     @Override
-    public <R> R accept(Visitor<R> visitor) throws RuntimeError {
-        return visitor.visitBinaryExpression(this);
+    public <R> R accept(ExprVisitor<R> exprVisitor) throws RuntimeError {
+        return exprVisitor.visitBinaryExpression(this);
     }
 }

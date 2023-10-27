@@ -3,26 +3,26 @@ package grupa.Expressions;
 import grupa.Parser.RuntimeError;
 import grupa.Scanner.Token;
 
-public class Unary extends Expression {
+public class Unary extends Expr {
     final Token operator;
-    final Expression right;
+    final Expr right;
 
-    public Unary(Token operator, Expression right) {
+    public Unary(Token operator, Expr right) {
         this.operator = operator;
         this.right = right;
     }
 
 
     @Override
-    public <R> R accept(Visitor<R> visitor) throws RuntimeError {
-        return visitor.visitUnaryExpression(this);
+    public <R> R accept(ExprVisitor<R> exprVisitor) throws RuntimeError {
+        return exprVisitor.visitUnaryExpression(this);
     }
 
     public Token getOperator() {
         return operator;
     }
 
-    public Expression getRight() {
+    public Expr getRight() {
         return right;
     }
 }

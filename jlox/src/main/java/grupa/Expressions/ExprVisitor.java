@@ -2,7 +2,7 @@ package grupa.Expressions;
 
 import grupa.Parser.RuntimeError;
 
-public interface Visitor<R>{
+public interface ExprVisitor<R>{
     R visitBinaryExpression(Binary expression) throws RuntimeError;
     R visitGroupingExpression(Grouping expression) throws RuntimeError;
     R visitLiteralExpression(Literal expression);

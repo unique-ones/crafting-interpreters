@@ -1,13 +1,13 @@
 package grupa;
 
-import grupa.Expressions.Expression;
+import grupa.Expressions.Expr;
 import grupa.Parser.Ast;
 import grupa.Parser.Interpreter;
 import grupa.Parser.RuntimeError;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
-import grupa.tools.AstPrinter;
+import grupa.Statements.Stmt;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -56,9 +56,9 @@ public class Lox {
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
-        Expression expression = new Ast(tokens).parse();
+        List<Stmt> stmts = new Ast(tokens).parse();
         if (hadError) return;
-        interpreter.interpret(expression);
+        interpreter.interpret(stmts);
     }
 
     /*@TODO

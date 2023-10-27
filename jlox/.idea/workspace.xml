@@ -5,19 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/RuntimeError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Expression.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Print.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Stmt.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expression.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Literal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Literal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Visitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Visitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/GenerateAst.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/GenerateAst.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +32,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -111,8 +116,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Lox" />
-        <item itemvalue="Application.AstPrinter" />
         <item itemvalue="Application.GenerateAst" />
+        <item itemvalue="Application.AstPrinter" />
       </list>
     </recent_temporary>
   </component>
@@ -143,17 +148,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
-          <line>156</line>
+          <line>183</line>
           <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java</url>
-          <line>41</line>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
-          <line>61</line>
+          <line>88</line>
           <option name="timeStamp" value="26" />
         </line-breakpoint>
       </breakpoints>
