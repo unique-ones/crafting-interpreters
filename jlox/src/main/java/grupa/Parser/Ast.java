@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ast {
-
     private final List<Token> tokens;
     private int current = 0;
 
