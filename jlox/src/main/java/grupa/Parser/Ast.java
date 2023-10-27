@@ -7,6 +7,7 @@ import grupa.Scanner.TokenType;
 import grupa.Statements.Expression;
 import grupa.Statements.Print;
 import grupa.Statements.Stmt;
+import grupa.Statements.Var;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +21,34 @@ public class Ast {
     }
 
     public List<Stmt> parse() {
-        try {
-            List<Stmt> stmts = new ArrayList<>();
+        List<Stmt> stmts = new ArrayList<>();
+        while (!isAtEnd()) {
+            stmts.add(declaration());
+        }
+        return stmts;
 
-            while (!isAtEnd()) {
-                stmts.add(statement());
-            }
-            return stmts;
+
+    }
+
+    private Stmt declaration() {
+        try {
+            if (match(TokenType.VAR)) return varDeclaration();
+            return statement();
         } catch (ParseError error) {
+            synchronize();
             return null;
         }
+    }
 
+    private Stmt varDeclaration() {
+        Token name = consume(TokenType.IDENTIFIER, "Expected variable name" );
+
+        Expr initializer = null;
+        if (match(TokenType.EQUAL)) {
+            initializer = expression();
+        }
+        consume(TokenType.SEMICOLON, "Expected ';' after variable declaration" );
+        return new Var(name, initializer);
     }
 
     private Stmt statement() {
@@ -46,13 +64,18 @@ public class Ast {
     }
 
     private Stmt expressionStatement() {
-        Expr expr = expression();
+         Expr expr = expression();
         consume(TokenType.SEMICOLON, "Expected ';' after statement" );
         return new Expression(expr);
     }
 
     private Expr expression() {
-        return condition();
+        return assignment();
+    }
+
+
+    private Expr assignment(){
+        return null;
     }
 
     //@TODO error handling
@@ -130,7 +153,7 @@ public class Ast {
         if (match(TokenType.TRUE)) return new Literal(true);
         if (match(TokenType.NIL)) return new Literal(null);
         if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLiteral());
-
+        if (match(TokenType.IDENTIFIER)) return new Variable(previous());
         if (match(TokenType.LEFT_PAREN)) {
             Expr expr = expression();
             consume(TokenType.RIGHT_PAREN, "Expected ')' after expression." );

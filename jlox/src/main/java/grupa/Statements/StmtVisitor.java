@@ -6,4 +6,5 @@ public interface StmtVisitor<R> {
     R visitExpressionStatement(Expression statement) throws RuntimeError;
 
     R visitPrintStatement(Print statement) throws RuntimeError;
+    R visitVarStatement(Var statement) throws RuntimeError;
 }

@@ -3,14 +3,12 @@ package grupa.Parser;
 import grupa.Expressions.*;
 import grupa.Lox;
 import grupa.Scanner.Token;
-import grupa.Statements.Expression;
-import grupa.Statements.Print;
-import grupa.Statements.Stmt;
-import grupa.Statements.StmtVisitor;
+import grupa.Statements.*;
 
 import java.util.List;
 
 public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
+    private Environment environment = new Environment();
 
     public void interpret(List<Stmt> stmts) {
         try {
@@ -95,6 +93,16 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
+    public Void visitVarStatement(Var statement) throws RuntimeError {
+        Object initializer = null;
+        if (statement.getInitializer() != null) {
+            initializer = evaluate(statement.getInitializer());
+        }
+        environment.define(statement.getName().getLexeme(), initializer);
+        return null;
+    }
+
+    @Override
     public Object visitGroupingExpression(Grouping expression) throws RuntimeError {
         return evaluate(expression.getExpression());
     }
@@ -127,6 +135,16 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         } else {
             return evaluate(expression.getFalseBranch());
         }
+    }
+
+    @Override
+    public Object visitVariableExpression(Variable expression) throws RuntimeError {
+        return environment.get(expression.getName());
+    }
+
+    @Override
+    public Object visitAssignExpression(Assign expression) throws RuntimeError {
+        return null;
     }
 
     private void checkNumberOperand(Token token, Object operand) throws RuntimeError {

@@ -1,6 +1,7 @@
 package grupa.Expressions;
 
 import grupa.Parser.RuntimeError;
+import grupa.Statements.Var;
 
 public interface ExprVisitor<R>{
     R visitBinaryExpression(Binary expression) throws RuntimeError;
@@ -8,5 +9,8 @@ public interface ExprVisitor<R>{
     R visitLiteralExpression(Literal expression);
     R visitUnaryExpression(Unary expression) throws RuntimeError;
     R visitConditionalExpression(Conditional expression) throws RuntimeError;
+    R visitVariableExpression(Variable expression) throws RuntimeError;
+    R visitAssignExpression(Assign expression) throws RuntimeError;
+
 
 }
