@@ -41,13 +41,13 @@ public class Ast {
     }
 
     private Stmt varDeclaration() {
-        Token name = consume(TokenType.IDENTIFIER, "Expected variable name" );
+        Token name = consume(TokenType.IDENTIFIER, "Expected variable name");
 
         Expr initializer = null;
         if (match(TokenType.EQUAL)) {
             initializer = expression();
         }
-        consume(TokenType.SEMICOLON, "Expected ';' after variable declaration" );
+        consume(TokenType.SEMICOLON, "Expected ';' after variable declaration");
         return new Var(name, initializer);
     }
 
@@ -59,13 +59,13 @@ public class Ast {
 
     private Stmt printStatement() {
         Expr expr = expression();
-        consume(TokenType.SEMICOLON, "Expected ';' after statement" );
+        consume(TokenType.SEMICOLON, "Expected ';' after statement");
         return new Print(expr);
     }
 
     private Stmt expressionStatement() {
-         Expr expr = expression();
-        consume(TokenType.SEMICOLON, "Expected ';' after statement" );
+        Expr expr = expression();
+        consume(TokenType.SEMICOLON, "Expected ';' after statement");
         return new Expression(expr);
     }
 
@@ -74,8 +74,19 @@ public class Ast {
     }
 
 
-    private Expr assignment(){
-        return null;
+    private Expr assignment() {
+
+        Expr expr = condition();
+        if (match(TokenType.EQUAL)) {
+            Token equals = previous();
+            Expr value = assignment();
+            if (expr instanceof Variable) {
+                Token name = ((Variable) expr).getName()    ;
+                return new Assign(name, value);
+            }
+            error(equals, "Invalid assignment target.");
+        }
+        return expr;
     }
 
     //@TODO error handling
@@ -84,7 +95,7 @@ public class Ast {
         if (match(TokenType.QUESTION)) {
             Token question = previous();
             Expr trueBranch = expression();
-            consume(TokenType.COLON, "Expected ':' for conditional expression" );
+            consume(TokenType.COLON, "Expected ':' for conditional expression");
             Token colon = previous();
             Expr falseBranch = expression();
             condition = new Conditional(condition, trueBranch, falseBranch, question, colon);
@@ -156,10 +167,10 @@ public class Ast {
         if (match(TokenType.IDENTIFIER)) return new Variable(previous());
         if (match(TokenType.LEFT_PAREN)) {
             Expr expr = expression();
-            consume(TokenType.RIGHT_PAREN, "Expected ')' after expression." );
+            consume(TokenType.RIGHT_PAREN, "Expected ')' after expression.");
             return new Grouping(expr);
         }
-        throw error(peek(), "Expression expected" );
+        throw error(peek(), "Expression expected");
     }
 
     private Token consume(TokenType type, String errorMessage) {

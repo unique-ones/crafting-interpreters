@@ -5,16 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Var.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -140,24 +136,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java</url>
-          <line>96</line>
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java</url>
-          <line>23</line>
-          <option name="timeStamp" value="33" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
-          <line>66</line>
-          <option name="timeStamp" value="41" />
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java</url>
+          <line>17</line>
+          <option name="timeStamp" value="45" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

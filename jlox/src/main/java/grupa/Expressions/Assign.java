@@ -22,6 +22,6 @@ public class Assign extends Expr {
 
     @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) throws RuntimeError {
-        return null;
+        return exprVisitor.visitAssignExpression(this);
     }
 }

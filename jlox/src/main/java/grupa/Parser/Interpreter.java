@@ -27,7 +27,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     private String stringify(Object value) {
         if (value == null) return "nil";
         if (value instanceof Double) {
-            if (value.toString().endsWith(".0" )) return value.toString().substring(0, value.toString().length() - 2);
+            if (value.toString().endsWith(".0")) return value.toString().substring(0, value.toString().length() - 2);
         }
         return value.toString();
     }
@@ -51,7 +51,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
                 if (left instanceof Double && right instanceof Double) return (double) right + (double) left;
                 else if ((left instanceof String || left instanceof Double) && (right instanceof String || right instanceof Double))
                     return stringify(left) + stringify(right);
-                throw new RuntimeError(expression.getOperator(), "Operands must be Number or String" );
+                throw new RuntimeError(expression.getOperator(), "Operands must be Number or String");
             case GREATER:
                 checkNumberOperands(expression.getOperator(), left, right);
                 return (double) left > (double) right;
@@ -98,7 +98,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         if (statement.getInitializer() != null) {
             initializer = evaluate(statement.getInitializer());
         }
-        environment.define(statement.getName().getLexeme(), initializer);
+        environment.define(statement.getName(), initializer);
         return null;
     }
 
@@ -144,22 +144,24 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Object visitAssignExpression(Assign expression) throws RuntimeError {
-        return null;
+        Object value = evaluate(expression.getValue());
+        environment.assign(expression.getName(), value);
+        return value;
     }
 
     private void checkNumberOperand(Token token, Object operand) throws RuntimeError {
         if (operand instanceof Double) return;
-        throw new RuntimeError(token, "Operand must be a number" );
+        throw new RuntimeError(token, "Operand must be a number");
     }
 
     private void checkNumberOperands(Token token, Object left, Object right) throws RuntimeError {
         if (left instanceof Double && right instanceof Double) return;
-        throw new RuntimeError(token, "Operand must be a number" );
+        throw new RuntimeError(token, "Operand must be a number");
     }
 
     private void checkBoolean(Token token, Object value) throws RuntimeError {
         if (value instanceof Boolean) return;
-        throw new RuntimeError(token, "Expression must return boolean" );
+        throw new RuntimeError(token, "Expression must return boolean");
     }
 
     private Object evaluate(Expr expr) throws RuntimeError {
