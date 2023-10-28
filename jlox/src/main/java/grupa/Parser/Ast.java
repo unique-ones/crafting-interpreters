@@ -4,10 +4,7 @@ import grupa.Expressions.*;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
-import grupa.Statements.Expression;
-import grupa.Statements.Print;
-import grupa.Statements.Stmt;
-import grupa.Statements.Var;
+import grupa.Statements.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,8 +50,16 @@ public class Ast {
 
     private Stmt statement() {
         if (match(TokenType.PRINT)) return printStatement();
-
+        if (match(TokenType.LEFT_BRACE)) return new Block(block());
         return expressionStatement();
+    }
+    private List<Stmt> block() {
+        List<Stmt> stmts = new ArrayList<>();
+        while (!check(TokenType.RIGHT_BRACE) && !isAtEnd()) {
+            stmts.add(declaration());
+        }
+        consume(TokenType.RIGHT_BRACE, "Expected '}' after block");
+        return stmts;
     }
 
     private Stmt printStatement() {
@@ -81,7 +86,7 @@ public class Ast {
             Token equals = previous();
             Expr value = assignment();
             if (expr instanceof Variable) {
-                Token name = ((Variable) expr).getName()    ;
+                Token name = ((Variable) expr).getName();
                 return new Assign(name, value);
             }
             error(equals, "Invalid assignment target.");
@@ -89,7 +94,6 @@ public class Ast {
         return expr;
     }
 
-    //@TODO error handling
     private Expr condition() {
         Expr condition = equality();
         if (match(TokenType.QUESTION)) {

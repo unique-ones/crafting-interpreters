@@ -103,6 +103,27 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
+    public Void visitBlockStatement(Block block) throws RuntimeError {
+        executeBlock(block.getStmts(), new Environment(environment));
+        return null;
+    }
+
+    private void executeBlock(List<Stmt> stmts, Environment environment) {
+        Environment previous = this.environment;
+        try {
+            this.environment = environment;
+            for (Stmt stmt : stmts) {
+                execute(stmt);
+            }
+        } catch (RuntimeError error) {
+            Lox.runtimeError(error);
+        } finally {
+            this.environment = previous;
+        }
+
+    }
+
+    @Override
     public Object visitGroupingExpression(Grouping expression) throws RuntimeError {
         return evaluate(expression.getExpression());
     }
