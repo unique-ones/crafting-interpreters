@@ -7,6 +7,7 @@ import grupa.Parser.RuntimeError;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
+import grupa.Statements.Expression;
 import grupa.Statements.Stmt;
 
 import java.io.*;
@@ -48,11 +49,25 @@ public class Lox {
             System.out.println("> ");
             String line = reader.readLine();
             if (line == null) break;
-            run(line);
+
+            Scanner scanner = new Scanner(line);
+            List<Token> tokens = scanner.scanTokens();
+            Object syntax = new Ast(tokens).parseRepl();
+            if (hadError) continue;
+
+            if (syntax instanceof Expr) {
+                String result = interpreter.interpret((Expr) syntax);
+                if (result != null) {
+                    System.out.println("=" + result);
+                }
+            } else {
+                interpreter.interpret((List<Stmt>) syntax);
+            }
             hadError = false;
         }
     }
 
+    //@TODO add better "boilerplate" for REPL and File run
     private static void run(String source) {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();

@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Ast {
+    private boolean allowExpression;
+    private boolean foundExpression = false;
     private final List<Token> tokens;
     private int current = 0;
 
@@ -23,8 +25,20 @@ public class Ast {
             stmts.add(declaration());
         }
         return stmts;
+    }
 
-
+    public Object parseRepl() {
+        allowExpression = true;
+        List<Stmt> stmts = new ArrayList<>();
+        while (!isAtEnd()) {
+            stmts.add(declaration());
+            if (foundExpression) {
+                Stmt last = stmts.get(stmts.size() - 1);
+                return ((Expression) last).getExpression();
+            }
+            allowExpression = false;
+        }
+        return stmts;
     }
 
     private Stmt declaration() {
@@ -53,6 +67,7 @@ public class Ast {
         if (match(TokenType.LEFT_BRACE)) return new Block(block());
         return expressionStatement();
     }
+
     private List<Stmt> block() {
         List<Stmt> stmts = new ArrayList<>();
         while (!check(TokenType.RIGHT_BRACE) && !isAtEnd()) {
@@ -70,7 +85,11 @@ public class Ast {
 
     private Stmt expressionStatement() {
         Expr expr = expression();
-        consume(TokenType.SEMICOLON, "Expected ';' after statement");
+        if (allowExpression && isAtEnd()) {
+            foundExpression = true;
+        } else {
+            consume(TokenType.SEMICOLON, "Expected ';' after statement");
+        }
         return new Expression(expr);
     }
 

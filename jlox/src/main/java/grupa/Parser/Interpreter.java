@@ -20,6 +20,16 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         }
     }
 
+    public String interpret(Expr expression) {
+        try {
+            Object value = evaluate(expression);
+            return stringify(value);
+        } catch (RuntimeError error) {
+            Lox.runtimeError(error);
+            return null;
+        }
+    }
+
     private void execute(Stmt stmt) throws RuntimeError {
         stmt.accept(this);
     }
@@ -81,7 +91,8 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Void visitExpressionStatement(Expression statement) throws RuntimeError {
-        evaluate(statement.getExpression());
+        Object value = evaluate(statement.getExpression());
+        System.out.println(stringify(value));
         return null;
     }
 
