@@ -38,6 +38,11 @@ public class Environment {
 
     public Object get(Token variable) throws RuntimeError {
         if (values.containsKey(variable.getLexeme())) {
+            Object value = values.get(variable.getLexeme());
+            if (value == null) {
+                throw new RuntimeError(variable, " Variable not initialized before use'" + variable.getLexeme() + "'.");
+
+            }
             return values.get(variable.getLexeme());
         }
         if (enclosing != null) {
