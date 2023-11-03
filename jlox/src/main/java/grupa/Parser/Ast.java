@@ -65,7 +65,21 @@ public class Ast {
     private Stmt statement() {
         if (match(TokenType.PRINT)) return printStatement();
         if (match(TokenType.LEFT_BRACE)) return new Block(block());
+        if (match(TokenType.IF)) return ifStatement();
         return expressionStatement();
+    }
+
+    private Stmt ifStatement() {
+        consume(TokenType.LEFT_PAREN, "Expected '(' before 'if'.");
+        Expr condition = expression();
+        consume(TokenType.RIGHT_PAREN, "Expected ')' after 'if'.");
+        Stmt thenBranch = statement();
+        Stmt elseBranch = null;
+        if (match(TokenType.ELSE)) {
+            elseBranch = statement();
+        }
+        return new If(condition, thenBranch, elseBranch);
+
     }
 
     private List<Stmt> block() {
@@ -114,7 +128,7 @@ public class Ast {
     }
 
     private Expr condition() {
-        Expr condition = equality();
+        Expr condition = or();
         if (match(TokenType.QUESTION)) {
             Token question = previous();
             Expr trueBranch = expression();
@@ -124,6 +138,26 @@ public class Ast {
             condition = new Conditional(condition, trueBranch, falseBranch, question, colon);
         }
         return condition;
+    }
+
+    private Expr or() {
+        Expr expr = and();
+        while (match(TokenType.OR)) {
+            Token operand = previous();
+            Expr right = and();
+            expr = new Logical(expr, right, operand);
+        }
+        return expr;
+    }
+
+    private Expr and() {
+        Expr expr = equality();
+        while (match(TokenType.AND)) {
+            Token operand = previous();
+            Expr right = equality();
+            expr = new Logical(expr, right, operand);
+        }
+        return expr;
     }
 
     private Expr equality() {

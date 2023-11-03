@@ -3,32 +3,30 @@ package grupa.Expressions;
 import grupa.Interpreter.RuntimeError;
 import grupa.Scanner.Token;
 
+public class Logical extends Expr {
+    private final Expr left, right;
+    private final Token operator;
 
-public class Binary extends Expr {
-    final Expr left;
-    final Token operator;
-    final Expr right;
-
-    public Binary(Expr left, Token operator, Expr right) {
+    public Logical(Expr left, Expr right, Token operator) {
         this.left = left;
-        this.operator = operator;
         this.right = right;
+        this.operator = operator;
     }
 
     public Expr getLeft() {
         return left;
     }
 
-    public Token getOperator() {
-        return operator;
-    }
-
     public Expr getRight() {
         return right;
     }
 
+    public Token getOperator() {
+        return operator;
+    }
+
     @Override
     public <R> R accept(ExprVisitor<R> exprVisitor) throws RuntimeError {
-        return exprVisitor.visitBinaryExpression(this);
+        return exprVisitor.visitLogicalExpression(this);
     }
 }

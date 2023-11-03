@@ -1,6 +1,6 @@
 package grupa.Expressions;
 
-import grupa.Parser.RuntimeError;
+import grupa.Interpreter.RuntimeError;
 
 public class Grouping extends Expr {
     final Expr expr;

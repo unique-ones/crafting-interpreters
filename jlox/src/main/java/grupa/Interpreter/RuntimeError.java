@@ -1,4 +1,4 @@
-package grupa.Parser;
+package grupa.Interpreter;
 
 
 import grupa.Scanner.Token;

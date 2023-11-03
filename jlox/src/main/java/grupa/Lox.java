@@ -2,12 +2,11 @@ package grupa;
 
 import grupa.Expressions.Expr;
 import grupa.Parser.Ast;
-import grupa.Parser.Interpreter;
-import grupa.Parser.RuntimeError;
+import grupa.Interpreter.Interpreter;
+import grupa.Interpreter.RuntimeError;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
-import grupa.Statements.Expression;
 import grupa.Statements.Stmt;
 
 import java.io.*;
@@ -22,8 +21,8 @@ public class Lox {
     static Interpreter interpreter = new Interpreter();
 
     public static void main(String[] args) throws IOException {
-        String a = ";asd";
 
+        //P:\_repos\crafting-interpreters\jlox\src\main\examples\test1.jlox
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
             System.exit(64);
@@ -43,9 +42,12 @@ public class Lox {
     }
 
     private static void runPrompt() throws IOException {
+
         InputStreamReader input = new InputStreamReader(System.in);
         BufferedReader reader = new BufferedReader(input);
         for (; ; ) {
+            hadError = false;
+            hadError = false;
             System.out.println("> ");
             String line = reader.readLine();
             if (line == null) break;
@@ -63,7 +65,6 @@ public class Lox {
             } else {
                 interpreter.interpret((List<Stmt>) syntax);
             }
-            hadError = false;
         }
     }
 

@@ -1,6 +1,6 @@
 package grupa.Expressions;
 
-import grupa.Parser.RuntimeError;
+import grupa.Interpreter.RuntimeError;
 import grupa.Scanner.Token;
 
 public class Variable extends Expr{

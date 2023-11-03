@@ -1,8 +1,9 @@
-package grupa.Parser;
+package grupa.Interpreter;
 
 import grupa.Expressions.*;
 import grupa.Lox;
 import grupa.Scanner.Token;
+import grupa.Scanner.TokenType;
 import grupa.Statements.*;
 
 import java.util.List;
@@ -92,7 +93,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     @Override
     public Void visitExpressionStatement(Expression statement) throws RuntimeError {
         Object value = evaluate(statement.getExpression());
-        System.out.println(stringify(value));
+        stringify(value);
         return null;
     }
 
@@ -116,6 +117,16 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     @Override
     public Void visitBlockStatement(Block block) throws RuntimeError {
         executeBlock(block.getStmts(), new Environment(environment));
+        return null;
+    }
+
+    @Override
+    public Void visitIfStatement(If statement) throws RuntimeError {
+        if (isTruthy(evaluate(statement.getCondition()))) {
+            execute(statement.getThenBranch());
+        } else if (statement.getElseBranch() != null) {
+            execute(statement.getElseBranch());
+        }
         return null;
     }
 
@@ -179,6 +190,18 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         Object value = evaluate(expression.getValue());
         environment.assign(expression.getName(), value);
         return value;
+    }
+
+    @Override
+    public Object visitLogicalExpression(Logical expression) throws RuntimeError {
+        Object left = evaluate(expression.getLeft());
+
+        if (expression.getOperator().getType() == TokenType.OR) {
+            if (isTruthy(left)) return left;
+        } else {
+            if (!isTruthy(left)) return left;
+        }
+        return evaluate(expression.getRight());
     }
 
     private void checkNumberOperand(Token token, Object operand) throws RuntimeError {

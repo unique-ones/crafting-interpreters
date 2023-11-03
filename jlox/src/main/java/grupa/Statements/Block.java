@@ -1,6 +1,6 @@
 package grupa.Statements;
 
-import grupa.Parser.RuntimeError;
+import grupa.Interpreter.RuntimeError;
 
 import java.util.ArrayList;
 import java.util.List;

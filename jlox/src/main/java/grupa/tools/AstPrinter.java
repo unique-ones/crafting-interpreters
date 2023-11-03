@@ -1,7 +1,7 @@
 package grupa.tools;
 
 import grupa.Expressions.*;
-import grupa.Parser.RuntimeError;
+import grupa.Interpreter.RuntimeError;
 
 public class AstPrinter implements ExprVisitor<String> {
 
@@ -50,6 +50,11 @@ public class AstPrinter implements ExprVisitor<String> {
 
     @Override
     public String visitAssignExpression(Assign expression) throws RuntimeError {
+        return null;
+    }
+
+    @Override
+    public String visitLogicalExpression(Logical expression) throws RuntimeError {
         return null;
     }
 
