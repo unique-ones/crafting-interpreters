@@ -66,7 +66,16 @@ public class Ast {
         if (match(TokenType.PRINT)) return printStatement();
         if (match(TokenType.LEFT_BRACE)) return new Block(block());
         if (match(TokenType.IF)) return ifStatement();
+        if (match((TokenType.WHILE))) return whileStatement();
         return expressionStatement();
+    }
+
+    private Stmt whileStatement() {
+        consume(TokenType.LEFT_PAREN, "Expected '(' before 'while'.");
+        Expr condition = expression();
+        consume(TokenType.RIGHT_PAREN, "Expected ')' after 'while'.");
+        Stmt body = statement();
+        return new While(condition, body);
     }
 
     private Stmt ifStatement() {

@@ -30,7 +30,7 @@ public class Environment {
             return;
         }
         if (enclosing != null) {
-            enclosing.assign(variable, variable);
+            enclosing.assign(variable, value);
             return;
         }
         throw new RuntimeError(variable, "Undefined variable'" + variable.getLexeme() + "'.");

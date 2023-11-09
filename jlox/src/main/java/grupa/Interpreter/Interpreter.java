@@ -130,6 +130,14 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitWhileStatement(While statement) throws RuntimeError {
+        while (isTruthy(evaluate(statement.getCondition()))) {
+            execute(statement.getBody());
+        }
+        return null;
+    }
+
     private void executeBlock(List<Stmt> stmts, Environment environment) {
         Environment previous = this.environment;
         try {

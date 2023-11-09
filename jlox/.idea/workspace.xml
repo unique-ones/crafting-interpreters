@@ -5,29 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Logical.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/If.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/While.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expr.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/RuntimeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/RuntimeError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Expression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Print.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Print.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Stmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Var.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Var.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,13 +135,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
-          <line>102</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
-          <line>74</line>
-          <option name="timeStamp" value="63" />
+          <line>15</line>
+          <option name="timeStamp" value="65" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
