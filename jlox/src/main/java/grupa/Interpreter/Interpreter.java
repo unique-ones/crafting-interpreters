@@ -11,6 +11,7 @@ import java.util.List;
 public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     private Environment environment = new Environment();
 
+
     public void interpret(List<Stmt> stmts) {
         try {
             for (Stmt stmt : stmts) {
@@ -132,10 +133,26 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Void visitWhileStatement(While statement) throws RuntimeError {
-        while (isTruthy(evaluate(statement.getCondition()))) {
-            execute(statement.getBody());
+        try {
+            while (isTruthy(evaluate(statement.getCondition()))) {
+                execute(statement.getBody());
+            }
+        } catch (BreakException e) {
+        } catch (ContinueException e) {
+            visitWhileStatement(statement);
         }
         return null;
+    }
+
+    //@TODO maybe without throwing an exception
+    @Override
+    public Void visitBreakStatement(Break statement) {
+        throw new BreakException();
+    }
+
+    @Override
+    public Void visitContinueStatement(Continue statement) {
+        throw new ContinueException();
     }
 
     private void executeBlock(List<Stmt> stmts, Environment environment) {

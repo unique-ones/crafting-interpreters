@@ -1,7 +1,15 @@
-var a = 0;
-var temp;
-for (var b = 1; a < 10000; b = temp + b) {
-print a;
-temp = a;
-a = b;
+var i=0;
+var s=10;
+var sa=12;
+while(i<5){
+    i=i+1;
+    if(i==2) continue;
+    while(s<sa){
+        s=s+1;
+        if(s==sa) break;
+        print s;
+    }
+    print(i);
+    sa=sa+1;
+    s=10;
 }

@@ -12,6 +12,7 @@ import java.util.List;
 
 public class Ast {
     private boolean allowExpression;
+    private int loopDepth = 0;
     private boolean foundExpression = false;
     private final List<Token> tokens;
     private int current = 0;
@@ -69,51 +70,82 @@ public class Ast {
         if (match(TokenType.IF)) return ifStatement();
         if (match((TokenType.WHILE))) return whileStatement();
         if (match((TokenType.FOR))) return forStatement();
+        if (match((TokenType.BREAK))) return breakStatement();
+        if (match((TokenType.CONTINUE))) return continueStatement();
 
         return expressionStatement();
     }
 
+    private Stmt breakStatement() {
+        if (loopDepth == 0) {
+            error(previous(), "Must be inside a loop to break");
+        }
+        consume(TokenType.SEMICOLON, "Expected ';' after 'break'");
+        return new Break();
+    }
+
+    private Stmt continueStatement() {
+        if (loopDepth == 0) {
+            error(previous(), "Must be inside a loop to continue");
+        }
+        consume(TokenType.SEMICOLON, "Expected ';' after 'continue'");
+        return new Continue();
+    }
+
     //Desugaring is pretty cool-> LGTM!
     private Stmt forStatement() {
-        consume(TokenType.LEFT_PAREN, "Expected '(' before 'for'.");
-        Stmt init = null;
-        if (match(TokenType.SEMICOLON)) {
-            init = null;
-        } else if (match(TokenType.VAR)) {
-            init = varDeclaration();
-        } else {
-            init = expressionStatement();
-        }
-        Expr condition = null;
-        if (!check(TokenType.SEMICOLON)) {
-            condition = expression();
-        }
-        consume(TokenType.SEMICOLON, "Expected ';' after loop condition");
+        try {
+            loopDepth++;
+            consume(TokenType.LEFT_PAREN, "Expected '(' before 'for'.");
+            Stmt init = null;
+            if (match(TokenType.SEMICOLON)) {
+                init = null;
+            } else if (match(TokenType.VAR)) {
+                init = varDeclaration();
+            } else {
+                init = expressionStatement();
+            }
+            Expr condition = null;
+            if (!check(TokenType.SEMICOLON)) {
+                condition = expression();
+            }
+            consume(TokenType.SEMICOLON, "Expected ';' after loop condition");
 
-        Expr increment = null;
-        if (!check(TokenType.RIGHT_PAREN)) {
-            increment = expression();
-        }
-        consume(TokenType.RIGHT_PAREN, "Expected ')' after for clause");
-        Stmt body = statement();
-        if (increment != null) {
-            body = new Block(Arrays.asList(body, new Expression(increment)));
-        }
-        if (condition == null) condition = new Literal(true);
-        body = new While(condition, body);
+            Expr increment = null;
+            if (!check(TokenType.RIGHT_PAREN)) {
+                increment = expression();
+            }
+            consume(TokenType.RIGHT_PAREN, "Expected ')' after for clause");
+            Stmt body = statement();
+            if (increment != null) {
+                body = new Block(Arrays.asList(body, new Expression(increment)));
+            }
+            if (condition == null) condition = new Literal(true);
+            body = new While(condition, body);
 
-        if (init != null) {
-            body = new Block(Arrays.asList(init, body));
+            if (init != null) {
+                body = new Block(Arrays.asList(init, body));
+            }
+            return body;
+        } finally {
+            loopDepth--;
         }
-        return body;
+
     }
 
     private Stmt whileStatement() {
-        consume(TokenType.LEFT_PAREN, "Expected '(' before 'while'.");
-        Expr condition = expression();
-        consume(TokenType.RIGHT_PAREN, "Expected ')' after 'while'.");
-        Stmt body = statement();
-        return new While(condition, body);
+        try {
+
+            consume(TokenType.LEFT_PAREN, "Expected '(' before 'while'.");
+            Expr condition = expression();
+            consume(TokenType.RIGHT_PAREN, "Expected ')' after 'while'.");
+            loopDepth++;
+            Stmt body = statement();
+            return new While(condition, body);
+
+        } finally {
+            loopDepth--;
+        }
     }
 
     private Stmt ifStatement() {

@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/BreakException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/ContinueException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Break.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Continue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Scanner/TokenType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Scanner/TokenType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,16 +48,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "P:/java_sandbox",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Application.Lox">
     <configuration name="AstPrinter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="grupa.tools.AstPrinter" />
@@ -132,9 +141,19 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Lox.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
-          <line>15</line>
-          <option name="timeStamp" value="65" />
+          <line>149</line>
+          <option name="timeStamp" value="70" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Lox.java</url>
+          <line>74</line>
+          <option name="timeStamp" value="72" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -144,11 +163,6 @@
         <PinnedItemInfo parentTag="grupa.Expressions.Binary" memberName="left" />
       </pinned-members>
     </pin-to-top-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="stmts.get(0)" />
-      </configuration>
-    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/jlox$Lox.ic" NAME="Lox Coverage Results" MODIFIED="1697974143998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
