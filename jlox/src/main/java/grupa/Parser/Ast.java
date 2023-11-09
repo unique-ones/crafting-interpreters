@@ -7,6 +7,7 @@ import grupa.Scanner.TokenType;
 import grupa.Statements.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Ast {
@@ -67,7 +68,44 @@ public class Ast {
         if (match(TokenType.LEFT_BRACE)) return new Block(block());
         if (match(TokenType.IF)) return ifStatement();
         if (match((TokenType.WHILE))) return whileStatement();
+        if (match((TokenType.FOR))) return forStatement();
+
         return expressionStatement();
+    }
+
+    //Desugaring is pretty cool-> LGTM!
+    private Stmt forStatement() {
+        consume(TokenType.LEFT_PAREN, "Expected '(' before 'for'.");
+        Stmt init = null;
+        if (match(TokenType.SEMICOLON)) {
+            init = null;
+        } else if (match(TokenType.VAR)) {
+            init = varDeclaration();
+        } else {
+            init = expressionStatement();
+        }
+        Expr condition = null;
+        if (!check(TokenType.SEMICOLON)) {
+            condition = expression();
+        }
+        consume(TokenType.SEMICOLON, "Expected ';' after loop condition");
+
+        Expr increment = null;
+        if (!check(TokenType.RIGHT_PAREN)) {
+            increment = expression();
+        }
+        consume(TokenType.RIGHT_PAREN, "Expected ')' after for clause");
+        Stmt body = statement();
+        if (increment != null) {
+            body = new Block(Arrays.asList(body, new Expression(increment)));
+        }
+        if (condition == null) condition = new Literal(true);
+        body = new While(condition, body);
+
+        if (init != null) {
+            body = new Block(Arrays.asList(init, body));
+        }
+        return body;
     }
 
     private Stmt whileStatement() {
