@@ -78,7 +78,7 @@ public class Ast {
 
     private Stmt breakStatement() {
         if (loopDepth == 0) {
-            error(previous(), "Must be inside a loop to break");
+            throw error(previous(), "Must be inside a loop to break");
         }
         consume(TokenType.SEMICOLON, "Expected ';' after 'break'");
         return new Break();
@@ -86,7 +86,7 @@ public class Ast {
 
     private Stmt continueStatement() {
         if (loopDepth == 0) {
-            error(previous(), "Must be inside a loop to continue");
+            throw error(previous(), "Must be inside a loop to continue");
         }
         consume(TokenType.SEMICOLON, "Expected ';' after 'continue'");
         return new Continue();

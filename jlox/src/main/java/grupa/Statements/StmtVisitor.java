@@ -5,21 +5,21 @@ import grupa.Interpreter.RuntimeError;
 import java.sql.Statement;
 
 public interface StmtVisitor<R> {
-    R visitExpressionStatement(Expression statement) throws RuntimeError;
+    R visitExpressionStatement(Expression statement);
 
-    R visitPrintStatement(Print statement) throws RuntimeError;
+    R visitPrintStatement(Print statement);
 
-    R visitVarStatement(Var statement) throws RuntimeError;
+    R visitVarStatement(Var statement);
 
-    R visitBlockStatement(Block block) throws RuntimeError;
+    R visitBlockStatement(Block block);
 
-    R visitIfStatement(If Statement) throws RuntimeError;
+    R visitIfStatement(If Statement);
 
-    R visitWhileStatement(While statement) throws RuntimeError;
+    R visitWhileStatement(While statement);
 
-    R visitBreakStatement(Break statement) throws RuntimeError;
+    R visitBreakStatement(Break statement);
 
-    R visitContinueStatement(Continue statement) throws RuntimeError;
+    R visitContinueStatement(Continue statement);
 
 
 }

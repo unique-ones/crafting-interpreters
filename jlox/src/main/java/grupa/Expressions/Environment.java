@@ -36,7 +36,7 @@ public class Environment {
         throw new RuntimeError(variable, "Undefined variable'" + variable.getLexeme() + "'.");
     }
 
-    public Object get(Token variable) throws RuntimeError {
+    public Object get(Token variable)  {
         if (values.containsKey(variable.getLexeme())) {
             Object value = values.get(variable.getLexeme());
             if (value == null) {

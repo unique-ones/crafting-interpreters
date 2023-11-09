@@ -4,7 +4,7 @@ package grupa.Interpreter;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
 
-public class RuntimeError extends Exception {
+public class RuntimeError extends RuntimeException {
     private final Token token;
 
     public RuntimeError(Token token, String message) {

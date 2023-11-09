@@ -1,15 +1,4 @@
-var i=0;
-var s=10;
-var sa=12;
-while(i<5){
-    i=i+1;
-    if(i==2) continue;
-    while(s<sa){
-        s=s+1;
-        if(s==sa) break;
-        print s;
-    }
-    print(i);
-    sa=sa+1;
-    s=10;
+var s=0;
+for(s=9;s<11;s=s+1){
+ print s;
 }

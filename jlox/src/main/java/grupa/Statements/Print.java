@@ -15,7 +15,7 @@ public class Print extends Stmt {
     }
 
     @Override
-    public <R> R accept(StmtVisitor<R> stmVisitor) throws RuntimeError {
+    public <R> R accept(StmtVisitor<R> stmVisitor)  {
         return stmVisitor.visitPrintStatement(this);
     }
 

@@ -20,7 +20,7 @@ public class While extends Stmt {
         return body;
     }
     @Override
-    public <R> R accept(StmtVisitor<R> stmtVisitor) throws RuntimeError {
+    public <R> R accept(StmtVisitor<R> stmtVisitor)  {
         return stmtVisitor.visitWhileStatement(this);
     }
 }

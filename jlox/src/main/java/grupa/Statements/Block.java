@@ -16,7 +16,7 @@ public class Block extends Stmt {
     }
 
     @Override
-    public <R> R accept(StmtVisitor<R> stmtVisitor) throws RuntimeError {
+    public <R> R accept(StmtVisitor<R> stmtVisitor)  {
         return stmtVisitor.visitBlockStatement(this);
     }
 }

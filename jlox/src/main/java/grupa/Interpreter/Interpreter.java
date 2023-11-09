@@ -20,6 +20,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         } catch (RuntimeError error) {
             Lox.runtimeError(error);
         }
+
     }
 
     public String interpret(Expr expression) {
@@ -32,7 +33,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         }
     }
 
-    private void execute(Stmt stmt) throws RuntimeError {
+    private void execute(Stmt stmt)  {
         stmt.accept(this);
     }
 
@@ -45,7 +46,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitBinaryExpression(Binary expression) throws RuntimeError {
+    public Object visitBinaryExpression(Binary expression)   {
         Object left = evaluate(expression.getLeft());
         Object right = evaluate(expression.getRight());
 
@@ -92,21 +93,21 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Void visitExpressionStatement(Expression statement) throws RuntimeError {
+    public Void visitExpressionStatement(Expression statement)  {
         Object value = evaluate(statement.getExpression());
         stringify(value);
         return null;
     }
 
     @Override
-    public Void visitPrintStatement(Print statement) throws RuntimeError {
+    public Void visitPrintStatement(Print statement)  {
         Object value = evaluate(statement.getExpression());
         System.out.println(stringify(value));
         return null;
     }
 
     @Override
-    public Void visitVarStatement(Var statement) throws RuntimeError {
+    public Void visitVarStatement(Var statement)  {
         Object initializer = null;
         if (statement.getInitializer() != null) {
             initializer = evaluate(statement.getInitializer());
@@ -116,13 +117,13 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Void visitBlockStatement(Block block) throws RuntimeError {
+    public Void visitBlockStatement(Block block)  {
         executeBlock(block.getStmts(), new Environment(environment));
         return null;
     }
 
     @Override
-    public Void visitIfStatement(If statement) throws RuntimeError {
+    public Void visitIfStatement(If statement)  {
         if (isTruthy(evaluate(statement.getCondition()))) {
             execute(statement.getThenBranch());
         } else if (statement.getElseBranch() != null) {
@@ -132,7 +133,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Void visitWhileStatement(While statement) throws RuntimeError {
+    public Void visitWhileStatement(While statement)  {
         try {
             while (isTruthy(evaluate(statement.getCondition()))) {
                 execute(statement.getBody());
@@ -164,14 +165,18 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
             }
         } catch (RuntimeError error) {
             Lox.runtimeError(error);
-        } finally {
+        }
+        catch (Exception error) {
+
+        }
+        finally {
             this.environment = previous;
         }
 
     }
 
     @Override
-    public Object visitGroupingExpression(Grouping expression) throws RuntimeError {
+    public Object visitGroupingExpression(Grouping expression)   {
         return evaluate(expression.getExpression());
     }
 
@@ -181,7 +186,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitUnaryExpression(Unary expression) throws RuntimeError {
+    public Object visitUnaryExpression(Unary expression)   {
         Object right = evaluate(expression.getRight());
         switch (expression.getOperator().getType()) {
             case BANG:
@@ -194,7 +199,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitConditionalExpression(Conditional expression) throws RuntimeError {
+    public Object visitConditionalExpression(Conditional expression)  {
         Object value = evaluate(expression.getCondition());
         checkBoolean(expression.getColon(), value);
         boolean condition = (boolean) value;
@@ -206,19 +211,19 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitVariableExpression(Variable expression) throws RuntimeError {
+    public Object visitVariableExpression(Variable expression)  {
         return environment.get(expression.getName());
     }
 
     @Override
-    public Object visitAssignExpression(Assign expression) throws RuntimeError {
+    public Object visitAssignExpression(Assign expression)  {
         Object value = evaluate(expression.getValue());
         environment.assign(expression.getName(), value);
         return value;
     }
 
     @Override
-    public Object visitLogicalExpression(Logical expression) throws RuntimeError {
+    public Object visitLogicalExpression(Logical expression)  {
         Object left = evaluate(expression.getLeft());
 
         if (expression.getOperator().getType() == TokenType.OR) {
@@ -229,22 +234,22 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         return evaluate(expression.getRight());
     }
 
-    private void checkNumberOperand(Token token, Object operand) throws RuntimeError {
+    private void checkNumberOperand(Token token, Object operand)  {
         if (operand instanceof Double) return;
         throw new RuntimeError(token, "Operand must be a number");
     }
 
-    private void checkNumberOperands(Token token, Object left, Object right) throws RuntimeError {
+    private void checkNumberOperands(Token token, Object left, Object right)  {
         if (left instanceof Double && right instanceof Double) return;
         throw new RuntimeError(token, "Operand must be a number");
     }
 
-    private void checkBoolean(Token token, Object value) throws RuntimeError {
+    private void checkBoolean(Token token, Object value)  {
         if (value instanceof Boolean) return;
         throw new RuntimeError(token, "Expression must return boolean");
     }
 
-    private Object evaluate(Expr expr) throws RuntimeError {
+    private Object evaluate(Expr expr)  {
         return expr.accept(this);
     }
 

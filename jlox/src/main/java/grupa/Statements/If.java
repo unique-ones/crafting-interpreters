@@ -27,7 +27,7 @@ public class If extends Stmt {
     }
 
     @Override
-    public <R> R accept(StmtVisitor<R> stmtVisitor) throws RuntimeError {
+    public <R> R accept(StmtVisitor<R> stmtVisitor)  {
         return stmtVisitor.visitIfStatement(this);
     }
 }

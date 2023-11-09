@@ -13,17 +13,18 @@ public class AstPrinter implements ExprVisitor<String> {
         //System.out.println(new AstPrinter().print(expression));
     }
 
-    public String print(Expr expr) throws RuntimeError {
-        return expr.accept(this);
+    public String print(Expr expr)  {
+            return expr.accept(this);
+
     }
 
     @Override
-    public String visitBinaryExpression(Binary expression) throws RuntimeError {
+    public String visitBinaryExpression(Binary expression) {
         return parenthesize(expression.getOperator().getLexeme(), expression.getLeft(), expression.getRight());
     }
 
     @Override
-    public String visitGroupingExpression(Grouping expression) throws RuntimeError {
+    public String visitGroupingExpression(Grouping expression)   {
         return parenthesize("grouping", expression.getExpression());
     }
 
@@ -34,31 +35,31 @@ public class AstPrinter implements ExprVisitor<String> {
     }
 
     @Override
-    public String visitUnaryExpression(Unary expression) throws RuntimeError {
+    public String visitUnaryExpression(Unary expression)   {
         return parenthesize(expression.getOperator().getLexeme(), expression.getRight());
     }
 
     @Override
-    public String visitConditionalExpression(Conditional expression) throws RuntimeError {
+    public String visitConditionalExpression(Conditional expression)   {
         return parenthesize("?:", expression.getCondition(), expression.getTrueBranch(), expression.getFalseBranch());
     }
 
     @Override
-    public String visitVariableExpression(Variable expression) throws RuntimeError {
+    public String visitVariableExpression(Variable expression)   {
         return null;
     }
 
     @Override
-    public String visitAssignExpression(Assign expression) throws RuntimeError {
+    public String visitAssignExpression(Assign expression)   {
         return null;
     }
 
     @Override
-    public String visitLogicalExpression(Logical expression) throws RuntimeError {
+    public String visitLogicalExpression(Logical expression)   {
         return null;
     }
 
-    private String parenthesize(String name, Expr... exprs) throws RuntimeError {
+    private String parenthesize(String name, Expr... exprs)   {
         StringBuilder builder = new StringBuilder();
         builder.append("(").append(name);
         for (var expr : exprs) {

@@ -40,7 +40,7 @@ public class Conditional extends Expr {
     }
 
     @Override
-    public <R> R accept(ExprVisitor<R> exprVisitor) throws RuntimeError {
+    public <R> R accept(ExprVisitor<R> exprVisitor)  {
         return exprVisitor.visitConditionalExpression(this);
     }
 }
