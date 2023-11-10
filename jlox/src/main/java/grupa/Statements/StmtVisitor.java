@@ -20,6 +20,6 @@ public interface StmtVisitor<R> {
     R visitBreakStatement(Break statement);
 
     R visitContinueStatement(Continue statement);
-
+    R visitFunctionStatement(Function statement);
 
 }

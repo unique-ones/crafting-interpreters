@@ -20,8 +20,8 @@ public class Environment {
 
     private final Map<String, Object> values = new HashMap<>();
 
-    public void define(Token variable, Object value) {
-        values.put(variable.getLexeme(), value);
+    public void define(String name, Object value) {
+        values.put(name, value);
     }
 
     public void assign(Token variable, Object value) throws RuntimeError {

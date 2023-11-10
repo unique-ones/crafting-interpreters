@@ -5,32 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Call.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/LoxCallable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Function.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Assign.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Binary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Conditional.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expr.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Expr.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Grouping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Logical.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Logical.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Unary.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/RuntimeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/RuntimeError.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Break.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Break.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Continue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Continue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Expression.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Expression.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/If.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/If.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Print.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Print.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Stmt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Stmt.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Var.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Var.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/While.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/While.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,17 +46,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "P:/java_sandbox",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;P:/java_sandbox&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Lox">
     <configuration name="AstPrinter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="grupa.tools.AstPrinter" />
@@ -161,19 +144,9 @@
           <option name="timeStamp" value="66" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
-          <line>150</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
-          <line>50</line>
+          <line>51</line>
           <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
-          <line>20</line>
-          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -6,11 +6,31 @@ import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
 import grupa.Statements.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
-    private Environment environment = new Environment();
+    private Environment globals = new Environment();
+    private Environment environment = globals;
 
+
+    public Interpreter(Environment globals) {
+        this.globals.define("clock", new LoxCallable() {
+            @Override
+            public int getArity() {
+                return 0;
+            }
+            @Override
+            public Object call(Interpreter interpreter, List<Object> args) {
+                return (double) System.currentTimeMillis() / 1000;
+            }
+            @Override
+            public String toString() {
+                return "<native fn>";
+            }
+        });
+    }
 
     public void interpret(List<Stmt> stmts) {
         try {
@@ -33,7 +53,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         }
     }
 
-    private void execute(Stmt stmt)  {
+    private void execute(Stmt stmt) {
         stmt.accept(this);
     }
 
@@ -46,7 +66,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitBinaryExpression(Binary expression)   {
+    public Object visitBinaryExpression(Binary expression) {
         Object left = evaluate(expression.getLeft());
         Object right = evaluate(expression.getRight());
 
@@ -93,37 +113,37 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Void visitExpressionStatement(Expression statement)  {
+    public Void visitExpressionStatement(Expression statement) {
         Object value = evaluate(statement.getExpression());
         stringify(value);
         return null;
     }
 
     @Override
-    public Void visitPrintStatement(Print statement)  {
+    public Void visitPrintStatement(Print statement) {
         Object value = evaluate(statement.getExpression());
         System.out.println(stringify(value));
         return null;
     }
 
     @Override
-    public Void visitVarStatement(Var statement)  {
+    public Void visitVarStatement(Var statement) {
         Object initializer = null;
         if (statement.getInitializer() != null) {
             initializer = evaluate(statement.getInitializer());
         }
-        environment.define(statement.getName(), initializer);
+        environment.define(statement.getName().getLexeme(), initializer);
         return null;
     }
 
     @Override
-    public Void visitBlockStatement(Block block)  {
+    public Void visitBlockStatement(Block block) {
         executeBlock(block.getStmts(), new Environment(environment));
         return null;
     }
 
     @Override
-    public Void visitIfStatement(If statement)  {
+    public Void visitIfStatement(If statement) {
         if (isTruthy(evaluate(statement.getCondition()))) {
             execute(statement.getThenBranch());
         } else if (statement.getElseBranch() != null) {
@@ -133,7 +153,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Void visitWhileStatement(While statement)  {
+    public Void visitWhileStatement(While statement) {
         try {
             while (isTruthy(evaluate(statement.getCondition()))) {
                 execute(statement.getBody());
@@ -165,18 +185,16 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
             }
         } catch (RuntimeError error) {
             Lox.runtimeError(error);
-        }
-        catch (Exception error) {
+        } catch (Exception error) {
 
-        }
-        finally {
+        } finally {
             this.environment = previous;
         }
 
     }
 
     @Override
-    public Object visitGroupingExpression(Grouping expression)   {
+    public Object visitGroupingExpression(Grouping expression) {
         return evaluate(expression.getExpression());
     }
 
@@ -186,7 +204,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitUnaryExpression(Unary expression)   {
+    public Object visitUnaryExpression(Unary expression) {
         Object right = evaluate(expression.getRight());
         switch (expression.getOperator().getType()) {
             case BANG:
@@ -199,7 +217,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitConditionalExpression(Conditional expression)  {
+    public Object visitConditionalExpression(Conditional expression) {
         Object value = evaluate(expression.getCondition());
         checkBoolean(expression.getColon(), value);
         boolean condition = (boolean) value;
@@ -211,19 +229,19 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
     @Override
-    public Object visitVariableExpression(Variable expression)  {
+    public Object visitVariableExpression(Variable expression) {
         return environment.get(expression.getName());
     }
 
     @Override
-    public Object visitAssignExpression(Assign expression)  {
+    public Object visitAssignExpression(Assign expression) {
         Object value = evaluate(expression.getValue());
         environment.assign(expression.getName(), value);
         return value;
     }
 
     @Override
-    public Object visitLogicalExpression(Logical expression)  {
+    public Object visitLogicalExpression(Logical expression) {
         Object left = evaluate(expression.getLeft());
 
         if (expression.getOperator().getType() == TokenType.OR) {
@@ -234,22 +252,37 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         return evaluate(expression.getRight());
     }
 
-    private void checkNumberOperand(Token token, Object operand)  {
+    @Override
+    public Object visitCallExpression(Call expression) {
+        Object callee = evaluate(expression.getCallee());
+        List<Object> args = expression.getArguments().stream().map(expr -> evaluate(expr)).toList();
+
+        if (!(callee instanceof LoxCallable)) {
+            throw new RuntimeError(expression.getParent(), "Can only call functions and classes.");
+        }
+        LoxCallable function = (LoxCallable) callee;
+        if (args.size() != function.getArity()) {
+            throw new RuntimeError(expression.getParent(), "Expected " + function.getArity() + " arguments but got " + args.size() + ".");
+        }
+        return function.call(this, args);
+    }
+
+    private void checkNumberOperand(Token token, Object operand) {
         if (operand instanceof Double) return;
         throw new RuntimeError(token, "Operand must be a number");
     }
 
-    private void checkNumberOperands(Token token, Object left, Object right)  {
+    private void checkNumberOperands(Token token, Object left, Object right) {
         if (left instanceof Double && right instanceof Double) return;
         throw new RuntimeError(token, "Operand must be a number");
     }
 
-    private void checkBoolean(Token token, Object value)  {
+    private void checkBoolean(Token token, Object value) {
         if (value instanceof Boolean) return;
         throw new RuntimeError(token, "Expression must return boolean");
     }
 
-    private Object evaluate(Expr expr)  {
+    private Object evaluate(Expr expr) {
         return expr.accept(this);
     }
 

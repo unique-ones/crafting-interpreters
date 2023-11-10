@@ -46,11 +46,30 @@ public class Ast {
     private Stmt declaration() {
         try {
             if (match(TokenType.VAR)) return varDeclaration();
+            if (match(TokenType.FUN)) return funDeclaration("function");
             return statement();
         } catch (ParseError error) {
             synchronize();
             return null;
         }
+    }
+
+    private Stmt funDeclaration(String kind) {
+        Token name = consume(TokenType.IDENTIFIER, "Expected " + kind + " name.");
+        consume(TokenType.LEFT_PAREN, "Expected '(' after " + kind + " name.");
+        List<Token> parameters = new ArrayList<>();
+
+        if (!check(TokenType.RIGHT_PAREN)) {
+            do {
+                if (parameters.size() >= 255) {
+                    error(peek(), "Cannot have more than 255 params");
+                }
+                parameters.add(consume(TokenType.IDENTIFIER, "Expected parameter name."));
+            } while (match(TokenType.COMMA));
+        }
+        consume(TokenType.RIGHT_PAREN, "Expected '(' after parameters");
+        List<Stmt> body = block();
+        return new Function(parameters, name, body);
     }
 
     private Stmt varDeclaration() {
@@ -292,7 +311,34 @@ public class Ast {
             Expr right = unary();
             return new Unary(operator, right);
         }
-        return primary();
+        return call();
+    }
+
+    private Expr call() {
+        Expr expr = primary();
+        while (true) {
+            if (match(TokenType.LEFT_PAREN)) {
+                expr = finishCall(expr);
+            } else {
+                break;
+            }
+        }
+        return expr;
+    }
+
+    private Expr finishCall(Expr expr) {
+        List<Expr> args = new ArrayList<>();
+
+        if (!check(TokenType.RIGHT_PAREN)) {
+            do {
+                if (args.size() >= 255) {
+                    error(peek(), "Cannot have more than 255 args");
+                }
+                args.add(expression());
+            } while (match(TokenType.COMMA));
+        }
+        Token paren = consume(TokenType.RIGHT_PAREN, "Expected ')' after arguments");
+        return new Call(expr, args, paren);
     }
 
     private Expr primary() {
