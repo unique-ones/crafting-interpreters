@@ -1,4 +1,4 @@
-package grupa.Interpreter;
+package grupa.Interpreter.Exceptions;
 
 
 import grupa.Scanner.Token;

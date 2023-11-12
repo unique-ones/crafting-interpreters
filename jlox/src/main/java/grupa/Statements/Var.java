@@ -1,7 +1,6 @@
 package grupa.Statements;
 
 import grupa.Expressions.Expr;
-import grupa.Interpreter.RuntimeError;
 import grupa.Scanner.Token;
 
 public class Var extends Stmt {

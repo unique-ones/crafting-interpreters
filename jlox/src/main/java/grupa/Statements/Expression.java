@@ -1,7 +1,6 @@
 package grupa.Statements;
 
 import grupa.Expressions.Expr;
-import grupa.Interpreter.RuntimeError;
 
 public class Expression extends Stmt {
     private final Expr expr;

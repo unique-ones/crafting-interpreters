@@ -67,7 +67,8 @@ public class Ast {
                 parameters.add(consume(TokenType.IDENTIFIER, "Expected parameter name."));
             } while (match(TokenType.COMMA));
         }
-        consume(TokenType.RIGHT_PAREN, "Expected '(' after parameters");
+        consume(TokenType.RIGHT_PAREN, "Expected ')' after parameters");
+        consume(TokenType.LEFT_BRACE, "Expected '{' before " + kind + " body.");
         List<Stmt> body = block();
         return new Function(parameters, name, body);
     }
@@ -91,8 +92,19 @@ public class Ast {
         if (match((TokenType.FOR))) return forStatement();
         if (match((TokenType.BREAK))) return breakStatement();
         if (match((TokenType.CONTINUE))) return continueStatement();
+        if (match((TokenType.RETURN))) return returnStatement();
 
         return expressionStatement();
+    }
+
+    private Stmt returnStatement() {
+        Token keyword = previous();
+        Expr expr = null;
+        if (!check(TokenType.SEMICOLON)) {
+            expr = expression();
+        }
+        consume(TokenType.SEMICOLON, "Expected ';' after return value");
+        return new Return(keyword, expr);
     }
 
     private Stmt breakStatement() {

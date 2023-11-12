@@ -1,4 +1,4 @@
-package grupa.Interpreter;
+package grupa.Interpreter.Exceptions;
 
 public class BreakException extends RuntimeException{
 }

@@ -1,7 +1,6 @@
 package grupa.Statements;
 
 import grupa.Expressions.Expr;
-import grupa.Interpreter.RuntimeError;
 
 public class While extends Stmt {
     private final Expr condition;

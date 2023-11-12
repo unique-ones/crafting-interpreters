@@ -1,19 +1,32 @@
 package grupa.Interpreter;
 
 import grupa.Expressions.*;
+import grupa.Interpreter.Exceptions.BreakException;
+import grupa.Interpreter.Exceptions.ContinueException;
+import grupa.Interpreter.Exceptions.ReturnException;
+import grupa.Interpreter.Exceptions.RuntimeError;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
 import grupa.Statements.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     private Environment globals = new Environment();
     private Environment environment = globals;
 
+
+    public Environment getGlobals() {
+        return globals;
+    }
+
+    public Environment getEnvironment() {
+        return environment;
+    }
+
+    public Interpreter() {
+    }
 
     public Interpreter(Environment globals) {
         this.globals.define("clock", new LoxCallable() {
@@ -21,10 +34,12 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
             public int getArity() {
                 return 0;
             }
+
             @Override
             public Object call(Interpreter interpreter, List<Object> args) {
                 return (double) System.currentTimeMillis() / 1000;
             }
+
             @Override
             public String toString() {
                 return "<native fn>";
@@ -176,17 +191,29 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         throw new ContinueException();
     }
 
-    private void executeBlock(List<Stmt> stmts, Environment environment) {
+    @Override
+    public Void visitFunctionStatement(Function statement) {
+        LoxFunction function = new LoxFunction(statement);
+        environment.define(statement.getName().getLexeme(), function);
+        return null;
+    }
+
+    @Override
+    public Void visitReturnStatement(Return statement) {
+        Object value = null;
+        if (statement.getExpr() != null) value = evaluate(statement.getExpr());
+        throw new ReturnException(value);
+    }
+
+    public void executeBlock(List<Stmt> stmts, Environment environments) {
         Environment previous = this.environment;
         try {
-            this.environment = environment;
+            this.environment = environments;
             for (Stmt stmt : stmts) {
                 execute(stmt);
             }
         } catch (RuntimeError error) {
             Lox.runtimeError(error);
-        } catch (Exception error) {
-
         } finally {
             this.environment = previous;
         }

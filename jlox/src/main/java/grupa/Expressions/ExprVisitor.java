@@ -1,7 +1,5 @@
 package grupa.Expressions;
 
-import grupa.Interpreter.RuntimeError;
-
 public interface ExprVisitor<R> {
     R visitBinaryExpression(Binary expression);
 

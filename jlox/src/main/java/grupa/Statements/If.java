@@ -1,7 +1,6 @@
 package grupa.Statements;
 
 import grupa.Expressions.Expr;
-import grupa.Interpreter.RuntimeError;
 
 public class If extends Stmt {
     final private Expr condition;

@@ -3,7 +3,7 @@ package grupa;
 import grupa.Expressions.Expr;
 import grupa.Parser.Ast;
 import grupa.Interpreter.Interpreter;
-import grupa.Interpreter.RuntimeError;
+import grupa.Interpreter.Exceptions.RuntimeError;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;

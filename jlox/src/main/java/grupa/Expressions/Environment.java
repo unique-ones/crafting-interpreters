@@ -1,6 +1,6 @@
 package grupa.Expressions;
 
-import grupa.Interpreter.RuntimeError;
+import grupa.Interpreter.Exceptions.RuntimeError;
 import grupa.Scanner.Token;
 
 import java.util.HashMap;

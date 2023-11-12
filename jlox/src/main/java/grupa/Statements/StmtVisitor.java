@@ -1,9 +1,5 @@
 package grupa.Statements;
 
-import grupa.Interpreter.RuntimeError;
-
-import java.sql.Statement;
-
 public interface StmtVisitor<R> {
     R visitExpressionStatement(Expression statement);
 
@@ -20,6 +16,10 @@ public interface StmtVisitor<R> {
     R visitBreakStatement(Break statement);
 
     R visitContinueStatement(Continue statement);
+
     R visitFunctionStatement(Function statement);
+
+    R visitReturnStatement(Return statement);
+
 
 }

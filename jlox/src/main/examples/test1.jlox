@@ -1,4 +1,7 @@
-var s=0;
-for(s=9;s<11;s=s+1){
- print s;
+fun fib(n) {
+if (n <= 1) return n;
+return fib(n - 2) + fib(n - 1);
+}
+for (var i = 0; i < 20; i = i + 1) {
+print fib(i);
 }
