@@ -18,7 +18,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
 
     public Environment getGlobals() {
-        return globals;
+        return this.globals;
     }
 
     public Environment getEnvironment() {
@@ -193,7 +193,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Void visitFunctionStatement(Function statement) {
-        LoxFunction function = new LoxFunction(statement);
+        LoxFunction function = new LoxFunction(statement,this.environment);
         environment.define(statement.getName().getLexeme(), function);
         return null;
     }
