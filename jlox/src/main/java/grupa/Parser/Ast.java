@@ -104,7 +104,7 @@ public class Ast {
             expr = expression();
         }
         consume(TokenType.SEMICOLON, "Expected ';' after return value");
-        return new Return(keyword, expr);
+        return new Return(keyword,  expr);
     }
 
     private Stmt breakStatement() {
@@ -346,7 +346,12 @@ public class Ast {
                 if (args.size() >= 255) {
                     error(peek(), "Cannot have more than 255 args");
                 }
-                args.add(expression());
+                if(check(TokenType.FUN)){
+                    Expr expr1=
+                }
+                else{
+                    args.add(expression());
+                }
             } while (match(TokenType.COMMA));
         }
         Token paren = consume(TokenType.RIGHT_PAREN, "Expected ')' after arguments");

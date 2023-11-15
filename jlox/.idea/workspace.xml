@@ -8,10 +8,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jlox.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jlox.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Exceptions/ReturnException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Exceptions/ReturnException.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/LoxFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/LoxFunction.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +88,7 @@
     <configuration name="Lox" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="grupa.Lox" />
       <module name="jlox" />
-      <option name="PROGRAM_PARAMETERS" value="S:\_repos\jlox-interpreter\jlox\src\main\examples\test1.jlox" />
+      <option name="PROGRAM_PARAMETERS" value="P:\_repos\crafting-interpreters\jlox\src\main\examples\test1.jlox " />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/java/grupa/tools/" />
       <extension name="coverage">
         <pattern>
@@ -146,11 +147,6 @@
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java</url>
           <line>51</line>
           <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Scanner/Scanner.java</url>
-          <line>109</line>
-          <option name="timeStamp" value="76" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
