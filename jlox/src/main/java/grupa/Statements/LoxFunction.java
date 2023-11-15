@@ -1,6 +1,7 @@
 package grupa.Statements;
 
 import grupa.Expressions.Environment;
+import grupa.Expressions.Function;
 import grupa.Interpreter.Exceptions.ReturnException;
 import grupa.Interpreter.Interpreter;
 import grupa.Interpreter.LoxCallable;
@@ -8,25 +9,31 @@ import grupa.Interpreter.LoxCallable;
 import java.util.List;
 
 public class LoxFunction implements LoxCallable {
-    private final Function function;
+    private final String name;
+    private final grupa.Expressions.Function declaration;
     private final Environment closure;
 
-    public LoxFunction(Function function, Environment closure) {
-        this.function = function;
+    public LoxFunction(String name, grupa.Expressions.Function declaration, Environment closure) {
+        this.name = name;
+        this.declaration = declaration;
         this.closure = closure;
     }
 
-    public Environment getClosure() {
-        return this.closure;
+    public String getName() {
+        return name;
     }
 
-    public Function getFunction() {
-        return function;
+    public Function getDeclaration() {
+        return declaration;
+    }
+
+    public Environment getClosure() {
+        return closure;
     }
 
     @Override
     public int getArity() {
-        return this.function.getParams().size();
+        return this.declaration.getParamters().size();
     }
 
     @Override
@@ -34,10 +41,10 @@ public class LoxFunction implements LoxCallable {
         try {
             Environment environment = new Environment(this.closure);
 
-            for (int i = 0; i < this.function.getParams().size(); i++) {
-                environment.define(function.getParams().get(i).getLexeme(), args.get(i));
+            for (int i = 0; i < this.declaration.getParamters().size(); i++) {
+                environment.define(this.declaration.getParamters().get(i).getLexeme(), args.get(i));
             }
-            interpreter.executeBlock(function.getBody(), environment);
+            interpreter.executeBlock(this.declaration.getBody(), environment);
         } catch (ReturnException e) {
             return e.getValue();
         }
@@ -47,7 +54,9 @@ public class LoxFunction implements LoxCallable {
     @Override
     public String toString() {
         return "LoxFunction{" +
-                "function=" + function +
+                "name='" + name + '\'' +
+                ", declaration=" + declaration +
+                ", closure=" + closure +
                 '}';
     }
 }

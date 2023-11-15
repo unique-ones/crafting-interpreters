@@ -19,4 +19,6 @@ public interface ExprVisitor<R> {
 
     R visitCallExpression(Call expression);
 
+    R visitFunctionExpression(Function expression);
+
 }

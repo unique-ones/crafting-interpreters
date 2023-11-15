@@ -1,6 +1,7 @@
 package grupa.Parser;
 
 import grupa.Expressions.*;
+import grupa.Expressions.Function;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
@@ -46,7 +47,10 @@ public class Ast {
     private Stmt declaration() {
         try {
             if (match(TokenType.VAR)) return varDeclaration();
-            if (match(TokenType.FUN)) return funDeclaration("function");
+            if (check(TokenType.FUN) && checkNext(TokenType.IDENTIFIER)) {
+                consume(TokenType.FUN, null);
+                return funDeclaration("function");
+            }
             return statement();
         } catch (ParseError error) {
             synchronize();
@@ -54,8 +58,12 @@ public class Ast {
         }
     }
 
-    private Stmt funDeclaration(String kind) {
-        Token name = consume(TokenType.IDENTIFIER, "Expected " + kind + " name.");
+    private Stmt funDeclaration(String function) {
+        Token name = consume(TokenType.IDENTIFIER, "Expected " + function + " name");
+        return new grupa.Statements.Function(name, funBody(function));
+    }
+
+    private Function funBody(String kind) {
         consume(TokenType.LEFT_PAREN, "Expected '(' after " + kind + " name.");
         List<Token> parameters = new ArrayList<>();
 
@@ -70,7 +78,7 @@ public class Ast {
         consume(TokenType.RIGHT_PAREN, "Expected ')' after parameters");
         consume(TokenType.LEFT_BRACE, "Expected '{' before " + kind + " body.");
         List<Stmt> body = block();
-        return new Function(parameters, name, body);
+        return new Function(parameters, body);
     }
 
     private Stmt varDeclaration() {
@@ -104,7 +112,7 @@ public class Ast {
             expr = expression();
         }
         consume(TokenType.SEMICOLON, "Expected ';' after return value");
-        return new Return(keyword,  expr);
+        return new Return(keyword, expr);
     }
 
     private Stmt breakStatement() {
@@ -345,11 +353,7 @@ public class Ast {
             do {
                 if (args.size() >= 255) {
                     error(peek(), "Cannot have more than 255 args");
-                }
-                if(check(TokenType.FUN)){
-                    Expr expr1=
-                }
-                else{
+                } else {
                     args.add(expression());
                 }
             } while (match(TokenType.COMMA));
@@ -364,6 +368,7 @@ public class Ast {
         if (match(TokenType.NIL)) return new Literal(null);
         if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLiteral());
         if (match(TokenType.IDENTIFIER)) return new Variable(previous());
+        if (match(TokenType.FUN)) return funBody("function");
         if (match(TokenType.LEFT_PAREN)) {
             Expr expr = expression();
             consume(TokenType.RIGHT_PAREN, "Expected ')' after expression.");
@@ -415,6 +420,12 @@ public class Ast {
     private ParseError error(Token token, String message) {
         Lox.error(token, message);
         return new ParseError();
+    }
+
+    private boolean checkNext(TokenType tokenType) {
+        if (isAtEnd()) return false;
+        if (tokens.get(current + 1).getType() == TokenType.EOF) return false;
+        return tokens.get(current + 1).getType() == tokenType;
     }
 
     private void synchronize() {

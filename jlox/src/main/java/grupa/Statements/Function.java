@@ -6,18 +6,16 @@ import java.util.List;
 
 public class Function extends Stmt {
 
-    private final List<Token> params;
     private final Token name;
-    private final List<Stmt> body;
+    private final grupa.Expressions.Function declaration;
 
-    public Function(List<Token> params, Token name, List<Stmt> body) {
-        this.params = params;
+    public Function(Token name, grupa.Expressions.Function declaration) {
         this.name = name;
-        this.body = body;
+        this.declaration = declaration;
     }
 
     public List<Token> getParams() {
-        return params;
+        return this.declaration.getParamters();
     }
 
     public Token getName() {
@@ -25,8 +23,13 @@ public class Function extends Stmt {
     }
 
     public List<Stmt> getBody() {
-        return body;
+        return this.declaration.getBody();
     }
+
+    public grupa.Expressions.Function getDeclaration() {
+        return declaration;
+    }
+
     @Override
     public <R> R accept(StmtVisitor<R> stmtVisitor) {
         return stmtVisitor.visitFunctionStatement(this);

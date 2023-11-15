@@ -9,6 +9,7 @@ import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
 import grupa.Statements.*;
+import grupa.Statements.Function;
 
 import java.util.List;
 
@@ -193,7 +194,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Void visitFunctionStatement(Function statement) {
-        LoxFunction function = new LoxFunction(statement,this.environment);
+        LoxFunction function = new LoxFunction(statement.getName().getLexeme(), statement.getDeclaration(), environment);
         environment.define(statement.getName().getLexeme(), function);
         return null;
     }
@@ -291,7 +292,12 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         if (args.size() != function.getArity()) {
             throw new RuntimeError(expression.getParent(), "Expected " + function.getArity() + " arguments but got " + args.size() + ".");
         }
-        return function.call(this, args);
+        return function .call(this, args);
+    }
+
+    @Override
+    public Object visitFunctionExpression(grupa.Expressions.Function expression) {
+        return new LoxFunction(null,expression,environment);
     }
 
     private void checkNumberOperand(Token token, Object operand) {
