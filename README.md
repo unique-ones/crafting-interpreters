@@ -3,9 +3,9 @@ Lox is a versatile programming language inspired by other scripting languages, w
 # Implementation in Java:
 The initial implementation of Lox is done in Java, taking advantage of the platform's robust object-oriented features and extensive libraries. The Java implementation serves as a reference and a starting point for understanding the core concepts of the Lox language.
 Key Features:
-  -**Interpreter**: The Java implementation includes an interpreter for executing Lox code. This interpreter is designed to parse, evaluate, and execute Lox programs seamlessly.
-  -**Object-Oriented Design**: Leveraging Java's object-oriented paradigm, the codebase emphasizes modular design, making it easy to extend and maintain.
-  -**Test Suite**: A comprehensive set of test cases is included to ensure the correctness and reliability of the Java implementation. Continuous integration is set up to run these tests automatically.
+  - **Interpreter**: The Java implementation includes an interpreter for executing Lox code. This interpreter is designed to parse, evaluate, and execute Lox programs seamlessly.
+  - **Object-Oriented Design**: Leveraging Java's object-oriented paradigm, the codebase emphasizes modular design, making it easy to extend and maintain.
+  - **Test Suite**: A comprehensive set of test cases is included to ensure the correctness and reliability of the Java implementation. Continuous integration is set up to run these tests automatically.
 
 # Implementation in C:
 Building on the foundation laid in Java, this repository aims to provide a second implementation of the Lox language in C. The transition to C introduces low-level memory management and adds another layer of understanding of language implementation.
