@@ -1,4 +1,4 @@
-#Overview:
+# Overview:
 Lox is a versatile programming language inspired by other scripting languages, with a focus on readability and expressiveness. It supports features like first-class functions, closures, and dynamic typing, making it suitable for a wide range of applications.
 # Implementation in Java:
 The initial implementation of Lox is done in Java, taking advantage of the platform's robust object-oriented features and extensive libraries. The Java implementation serves as a reference and a starting point for understanding the core concepts of the Lox language.
