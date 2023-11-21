@@ -326,4 +326,6 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
 
+    public void resolve(Expr expression, int i) {
+    }
 }
