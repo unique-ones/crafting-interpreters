@@ -4,6 +4,7 @@ import grupa.Expressions.Expr;
 import grupa.Parser.Ast;
 import grupa.Interpreter.Interpreter;
 import grupa.Interpreter.Exceptions.RuntimeError;
+import grupa.Resolver.Resolver;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
@@ -47,7 +48,6 @@ public class Lox {
         BufferedReader reader = new BufferedReader(input);
         for (; ; ) {
             hadError = false;
-            hadError = false;
             System.out.println("> ");
             String line = reader.readLine();
             if (line == null) break;
@@ -73,6 +73,9 @@ public class Lox {
         Scanner scanner = new Scanner(source);
         List<Token> tokens = scanner.scanTokens();
         List<Stmt> stmts = new Ast(tokens).parse();
+        if (hadError) return;
+        Resolver resolver = new Resolver(interpreter);
+        resolver.resolve(stmts);
         if (hadError) return;
         interpreter.interpret(stmts);
     }

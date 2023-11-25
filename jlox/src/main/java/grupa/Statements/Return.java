@@ -16,6 +16,10 @@ public class Return extends Stmt {
         return expr;
     }
 
+    public Token getKeyword() {
+        return keyword;
+    }
+
     @Override
     public <R> R accept(StmtVisitor<R> stmtVisitor) {
         return stmtVisitor.visitReturnStatement(this);

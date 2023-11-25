@@ -36,7 +36,7 @@ public class Environment {
         throw new RuntimeError(variable, "Undefined variable'" + variable.getLexeme() + "'.");
     }
 
-    public Object get(Token variable)  {
+    public Object get(Token variable) {
         if (values.containsKey(variable.getLexeme())) {
             Object value = values.get(variable.getLexeme());
             if (value == null) {
@@ -49,5 +49,21 @@ public class Environment {
             return enclosing.get(variable);
         }
         throw new RuntimeError(variable, "Undefined variable'" + variable.getLexeme() + "'.");
+    }
+
+    public Object getAt(Integer distance, String name) {
+        return ancestor(distance).values.get(name);
+    }
+
+    private Environment ancestor(Integer distance) {
+        Environment environment = this;
+        for (int i = 0; i < distance; i++) {
+            environment = environment.enclosing;
+        }
+        return environment;
+    }
+
+    public void assignAt(Integer distance, Token name, Object value) {
+        ancestor(distance).values.put(name.getLexeme(), value);
     }
 }

@@ -1,4 +1,4 @@
-package grupa.Parser;
+package grupa.Resolver;
 
 import grupa.Expressions.*;
 import grupa.Interpreter.Interpreter;
@@ -14,7 +14,9 @@ import java.util.Stack;
 
 public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     private final Interpreter interpreter;
-    private final Stack<Map<String, Boolean>> scopes = new Stack<>();
+    private final Stack<Map<String, Variable>> scopes = new Stack<>();
+
+    private FunctionType currentFunction = FunctionType.NONE;
 
     public Resolver(Interpreter interpreter) {
         this.interpreter = interpreter;
@@ -37,6 +39,7 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         declare(statement.getName());
         if (statement.getInitializer() != null) resolve(statement.getInitializer());
         define(statement.getName());
+
         return null;
     }
 
@@ -84,46 +87,47 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitReturnStatement(Return statement) {
+        if (currentFunction == FunctionType.NONE) {
+            Lox.error(statement.getKeyword(), "Can't return from top-level code");
+        }
         if (statement.getExpr() != null) resolve(statement.getExpr());
         return null;
     }
 
 
-    private void resolveFunction(Function statement) {
-        beginScope();
-        for (Token param : statement.getParams()) {
-            declare(param);
-            define(param);
-        }
-        resolve(statement.getBody());
-        endScope();
-    }
-
     private void beginScope() {
-        scopes.push(new HashMap<String, Boolean>());
+        scopes.push(new HashMap<String, Variable>());
     }
 
-    private void resolve(List<Stmt> stmts) {
+    public void resolve(List<Stmt> stmts) {
         stmts.forEach(stmt -> resolve(stmt));
     }
 
-    private void resolve(Stmt stmt) {
+    public void resolve(Stmt stmt) {
         stmt.accept(this);
     }
 
     private void endScope() {
-        this.scopes.pop();
+        Map<String, Variable> scope = this.scopes.pop();
+        for (Map.Entry<String, Variable> entry : scope.entrySet()) {
+            if (entry.getValue().variableState != VariableState.USED) {
+                Lox.error(entry.getValue().getName(), "Local variable is never used");
+            }
+        }
     }
 
     private void define(Token name) {
         if (scopes.isEmpty()) return;
-        scopes.peek().put(name.getLexeme(), true);
+        scopes.peek().put(name.getLexeme(), new Variable(name, VariableState.DEFINED));
     }
 
     private void declare(Token name) {
         if (scopes.isEmpty()) return;
-        Map<String, Boolean> scope = scopes.peek();
-        scope.put(name.getLexeme(), false);
+        Map<String, Variable> scope = scopes.peek();
+        if (scope.containsKey(name.getLexeme())) {
+            Lox.error(name, "This variable is already defined in this scope.");
+        }
+        scope.put(name.getLexeme(), new Variable(name, VariableState.DECLARED));
     }
 
     @Override
@@ -160,10 +164,10 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitVariableExpression(Variable expression) {
-        if (!scopes.isEmpty() && scopes.peek().get(expression.getName().getLexeme()) == Boolean.FALSE) {
+        if (!scopes.isEmpty() && scopes.peek().containsKey(expression.getName().getLexeme()) && scopes.peek().get(expression.getName().getLexeme()).variableState == VariableState.DECLARED) {
             Lox.error(expression.getName(), "Can't read local variable in its own initializer");
         }
-        resolveLocal(expression, expression.getName());
+        resolveLocal(expression, expression.getName(), true);
         return null;
     }
 
@@ -171,7 +175,7 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     @Override
     public Void visitAssignExpression(Assign expression) {
         resolve(expression.getValue());
-        resolveLocal(expression, expression.getName());
+        resolveLocal(expression, expression.getName(), false);
         return null;
     }
 
@@ -193,14 +197,17 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitFunctionExpression(grupa.Expressions.Function expression) {
+        FunctionType enclosingFunction = currentFunction;
+        //@TODO will get problems when adding methods
+        currentFunction = FunctionType.FUNCTION;
         beginScope();
         for (Token param : expression.getParamters()) {
-            define(param);
             declare(param);
+            define(param);
         }
         resolve(expression.getBody());
         endScope();
-
+        currentFunction = enclosingFunction;
         return null;
     }
 
@@ -208,10 +215,14 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         expr.accept(this);
     }
 
-    private void resolveLocal(Expr expression, Token name) {
+    private void resolveLocal(Expr expression, Token name, boolean isRead) {
         for (int i = scopes.size() - 1; i >= 0; i--) {
             if (scopes.get(i).containsKey(name.getLexeme())) {
                 interpreter.resolve(expression, scopes.size() - 1 - i);
+
+                if (isRead) {
+                    scopes.get(i).get(name.getLexeme()).variableState = VariableState.USED;
+                }
                 return;
             }
         }

@@ -120,7 +120,7 @@ public class Ast {
             throw error(previous(), "Must be inside a loop to break");
         }
         consume(TokenType.SEMICOLON, "Expected ';' after 'break'");
-        return new Break();
+        return new Break(peek());
     }
 
     private Stmt continueStatement() {
@@ -128,7 +128,7 @@ public class Ast {
             throw error(previous(), "Must be inside a loop to continue");
         }
         consume(TokenType.SEMICOLON, "Expected ';' after 'continue'");
-        return new Continue();
+        return new Continue(peek());
     }
 
     //Desugaring is pretty cool-> LGTM!

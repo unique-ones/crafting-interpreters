@@ -11,12 +11,14 @@ import grupa.Scanner.TokenType;
 import grupa.Statements.*;
 import grupa.Statements.Function;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     private Environment globals = new Environment();
     private Environment environment = globals;
-
+    private final Map<Expr, Integer> locals = new HashMap<>();
 
     public Environment getGlobals() {
         return this.globals;
@@ -258,12 +260,25 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Object visitVariableExpression(Variable expression) {
-        return environment.get(expression.getName());
+        return lookUpVariable(expression.getName(), expression);
+    }
+
+    private Object lookUpVariable(Token name, Variable expression) {
+        Integer distance = locals.get(expression);
+        if (distance != null) {
+            return environment.getAt(distance, name.getLexeme());
+        }
+        return globals.get(name);
     }
 
     @Override
     public Object visitAssignExpression(Assign expression) {
         Object value = evaluate(expression.getValue());
+
+        Integer distance = locals.get(expression.getName());
+        if(distance!=null){
+            environment.assignAt(distance,expression.getName(),value);
+        }
         environment.assign(expression.getName(), value);
         return value;
     }
@@ -292,12 +307,12 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         if (args.size() != function.getArity()) {
             throw new RuntimeError(expression.getParent(), "Expected " + function.getArity() + " arguments but got " + args.size() + ".");
         }
-        return function .call(this, args);
+        return function.call(this, args);
     }
 
     @Override
     public Object visitFunctionExpression(grupa.Expressions.Function expression) {
-        return new LoxFunction(null,expression,environment);
+        return new LoxFunction(null, expression, environment);
     }
 
     private void checkNumberOperand(Token token, Object operand) {
@@ -326,6 +341,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     }
 
 
-    public void resolve(Expr expression, int i) {
+    public void resolve(Expr expr, int depth) {
+        locals.put(expr, depth);
     }
 }

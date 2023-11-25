@@ -1,7 +1,7 @@
-fun a(b) {
-    b();
+{
+var s;
+{
+    s=s;
 }
 
-a(fun(){
-    print "GNU+LINUX";
-});
+}
