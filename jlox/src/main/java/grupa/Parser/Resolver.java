@@ -28,6 +28,7 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitPrintStatement(Print statement) {
+        resolve(statement.getExpression());
         return null;
     }
 
@@ -51,12 +52,14 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     public Void visitIfStatement(If statement) {
         resolve(statement.getCondition());
         resolve(statement.getThenBranch());
-        if(statement.getElseBranch()!=null) resolve(statement.getElseBranch());
+        if (statement.getElseBranch() != null) resolve(statement.getElseBranch());
         return null;
     }
 
     @Override
     public Void visitWhileStatement(While statement) {
+        resolve(statement.getCondition());
+        resolve(statement.getBody());
         return null;
     }
 
@@ -74,20 +77,21 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     public Void visitFunctionStatement(Function statement) {
         declare(statement.getName());
         define(statement.getName());
-        resolveFunction(statement);
+        resolve(statement.getDeclaration());
         return null;
     }
 
 
     @Override
     public Void visitReturnStatement(Return statement) {
+        if (statement.getExpr() != null) resolve(statement.getExpr());
         return null;
     }
 
 
     private void resolveFunction(Function statement) {
         beginScope();
-        for (Token param: statement.getParams()) {
+        for (Token param : statement.getParams()) {
             declare(param);
             define(param);
         }
@@ -124,11 +128,14 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitBinaryExpression(Binary expression) {
+        resolve(expression.getLeft());
+        resolve(expression.getRight());
         return null;
     }
 
     @Override
     public Void visitGroupingExpression(Grouping expression) {
+        resolve(expression.getExpression());
         return null;
     }
 
@@ -139,11 +146,15 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitUnaryExpression(Unary expression) {
+        resolve(expression.getRight());
         return null;
     }
 
     @Override
     public Void visitConditionalExpression(Conditional expression) {
+        resolve(expression.getCondition());
+        resolve(expression.getTrueBranch());
+        resolve(expression.getFalseBranch());
         return null;
     }
 
@@ -166,16 +177,30 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitLogicalExpression(Logical expression) {
+        resolve(expression.getLeft());
+        resolve(expression.getRight());
         return null;
     }
 
     @Override
     public Void visitCallExpression(Call expression) {
+        resolve(expression.getCallee());
+        for (Expr arg : expression.getArguments()) {
+            resolve(arg);
+        }
         return null;
     }
 
     @Override
     public Void visitFunctionExpression(grupa.Expressions.Function expression) {
+        beginScope();
+        for (Token param : expression.getParamters()) {
+            define(param);
+            declare(param);
+        }
+        resolve(expression.getBody());
+        endScope();
+
         return null;
     }
 
