@@ -21,5 +21,6 @@ public interface StmtVisitor<R> {
 
     R visitReturnStatement(Return statement);
 
+    R visitClassStatement(Class statement);
 
 }

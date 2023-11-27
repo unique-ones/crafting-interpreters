@@ -9,6 +9,7 @@ import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
 import grupa.Statements.*;
+import grupa.Statements.Class;
 import grupa.Statements.Function;
 
 import java.util.HashMap;
@@ -208,6 +209,14 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         throw new ReturnException(value);
     }
 
+    @Override
+    public Void visitClassStatement(Class statement) {
+        environment.define(statement.getName().getLexeme(), null);
+        LoxClass klass = new LoxClass(statement.getName().getLexeme());
+        environment.assign(statement.getName(), klass);
+        return null;
+    }
+
     public void executeBlock(List<Stmt> stmts, Environment environments) {
         Environment previous = this.environment;
         try {
@@ -276,8 +285,8 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         Object value = evaluate(expression.getValue());
 
         Integer distance = locals.get(expression.getName());
-        if(distance!=null){
-            environment.assignAt(distance,expression.getName(),value);
+        if (distance != null) {
+            environment.assignAt(distance, expression.getName(), value);
         }
         environment.assign(expression.getName(), value);
         return value;

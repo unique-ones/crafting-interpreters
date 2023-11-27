@@ -6,6 +6,7 @@ import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
 import grupa.Statements.*;
+import grupa.Statements.Class;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +52,7 @@ public class Ast {
                 consume(TokenType.FUN, null);
                 return funDeclaration("function");
             }
+            if (match(TokenType.CLASS)) return classDeclaration();
             return statement();
         } catch (ParseError error) {
             synchronize();
@@ -58,7 +60,19 @@ public class Ast {
         }
     }
 
-    private Stmt funDeclaration(String function) {
+    private Stmt classDeclaration() {
+        Token name = consume(TokenType.IDENTIFIER, "Expected class name");
+        consume(TokenType.LEFT_BRACE, "Expcted '{' before class body");
+
+        List<grupa.Statements.Function> methods = new ArrayList<>();
+        while (!check(TokenType.RIGHT_BRACE) && !isAtEnd()) {
+            methods.add(funDeclaration("method"));
+        }
+        consume(TokenType.RIGHT_BRACE, "Epected '}' after class body");
+        return new Class(name, methods);
+    }
+
+    private grupa.Statements.Function funDeclaration(String function) {
         Token name = consume(TokenType.IDENTIFIER, "Expected " + function + " name");
         return new grupa.Statements.Function(name, funBody(function));
     }
@@ -339,6 +353,9 @@ public class Ast {
         while (true) {
             if (match(TokenType.LEFT_PAREN)) {
                 expr = finishCall(expr);
+            } else if (match(TokenType.DOT)) {
+                Token name = consume(TokenType.IDENTIFIER, "Expect property name after '.'");
+                expr = new Get(expr, name);
             } else {
                 break;
             }

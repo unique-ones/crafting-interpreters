@@ -1,7 +1,8 @@
-{
-var s;
-{
-    s=s;
+class Test {
+    serveOn()
+    {
+        return "asd";
+    }
 }
 
-}
+print Test();

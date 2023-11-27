@@ -5,19 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/FunctionType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/VariableState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Get.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/LoxInstance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Class.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/LoxClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Environment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Variable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Break.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Break.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Continue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Continue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Return.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Return.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +28,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -98,7 +98,7 @@
     <configuration name="Lox" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="grupa.Lox" />
       <module name="jlox" />
-      <option name="PROGRAM_PARAMETERS" value="P:\_repos\crafting-interpreters\jlox\src\main\examples\test1.jlox " />
+      <option name="PROGRAM_PARAMETERS" value="S:\_repos\jlox-interpreter\jlox\src\main\examples\test1.jlox" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/java/grupa/tools/" />
       <extension name="coverage">
         <pattern>
@@ -150,13 +150,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Lox.java</url>
-          <line>91</line>
+          <line>92</line>
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java</url>
-          <line>166</line>
-          <option name="timeStamp" value="115" />
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
+          <line>271</line>
+          <option name="timeStamp" value="119" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -174,8 +174,8 @@
     </pin-to-top-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/jlox$Lox.ic" NAME="Lox Coverage Results" MODIFIED="1700911339326" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
-      <FILTER>grupa.Interpreter.Exceptions.*</FILTER>
+    <SUITE FILE_PATH="coverage/jlox$Lox.ic" NAME="Lox Coverage Results" MODIFIED="1697974143998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>grupa.Parser.*</FILTER>
     </SUITE>
   </component>
 </project>

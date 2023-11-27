@@ -21,4 +21,6 @@ public interface ExprVisitor<R> {
 
     R visitFunctionExpression(Function expression);
 
+    R visitGetExpression(Get expression);
+
 }

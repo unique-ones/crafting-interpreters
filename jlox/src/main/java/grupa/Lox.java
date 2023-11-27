@@ -24,6 +24,7 @@ public class Lox {
     public static void main(String[] args) throws IOException {
 
         //P:\_repos\crafting-interpreters\jlox\src\main\examples\test1.jlox
+        //S:\_repos\jlox-interpreter\jlox\src\main\examples\test1.jlox
         if (args.length > 1) {
             System.out.println("Usage: jlox [script]");
             System.exit(64);

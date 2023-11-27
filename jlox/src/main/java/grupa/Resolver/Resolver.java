@@ -5,6 +5,7 @@ import grupa.Interpreter.Interpreter;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Statements.*;
+import grupa.Statements.Class;
 import grupa.Statements.Function;
 
 import java.util.HashMap;
@@ -91,6 +92,13 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
             Lox.error(statement.getKeyword(), "Can't return from top-level code");
         }
         if (statement.getExpr() != null) resolve(statement.getExpr());
+        return null;
+    }
+
+    @Override
+    public Void visitClassStatement(Class statement) {
+        declare(statement.getName());
+        define(statement.getName());
         return null;
     }
 
