@@ -23,4 +23,5 @@ public interface ExprVisitor<R> {
 
     R visitGetExpression(Get expression);
 
+    R visitSetExpression(Set set);
 }

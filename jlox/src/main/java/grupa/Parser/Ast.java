@@ -253,6 +253,9 @@ public class Ast {
             if (expr instanceof Variable) {
                 Token name = ((Variable) expr).getName();
                 return new Assign(name, value);
+            } else if (expr instanceof Get) {
+                Get get = ((Get) expr);
+                return new Set(get.getObject(), get.getName(), value);
             }
             error(equals, "Invalid assignment target.");
         }

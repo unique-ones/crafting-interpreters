@@ -219,6 +219,19 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         return null;
     }
 
+    @Override
+    public Void visitGetExpression(Get expression) {
+        resolve(expression.getObject());
+        return null;
+    }
+
+    @Override
+    public Void visitSetExpression(Set set) {
+        resolve(set.getValue());
+        resolve(set.getObject());
+        return null;
+    }
+
     private void resolve(Expr expr) {
         expr.accept(this);
     }

@@ -324,6 +324,16 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         return new LoxFunction(null, expression, environment);
     }
 
+    @Override
+    public Object visitGetExpression(Get expression) {
+        Object object = evaluate(expression.getObject());
+
+        if (object instanceof LoxInstance) {
+            return ((LoxInstance) object).get(expression.getName());
+        }
+        throw new RuntimeError(expression.getName(), "Can only use properties on instances");
+    }
+
     private void checkNumberOperand(Token token, Object operand) {
         if (operand instanceof Double) return;
         throw new RuntimeError(token, "Operand must be a number");

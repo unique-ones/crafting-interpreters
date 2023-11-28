@@ -5,19 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Get.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/LoxInstance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Class.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/LoxClass.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Set.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/LoxInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/LoxInstance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/StmtVisitor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
