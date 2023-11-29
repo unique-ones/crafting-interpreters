@@ -5,4 +5,6 @@ class Test {
     }
 }
 
-print Test();
+var s=Test();
+s.asd=23;
+print s.asd(1);

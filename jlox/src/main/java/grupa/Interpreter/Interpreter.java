@@ -337,7 +337,13 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Object visitSetExpression(Set set) {
-        return null;
+        Object object = evaluate(set.getObject());
+        if (!(object instanceof LoxInstance)) {
+            throw new RuntimeError(set.getName(), "Only instances have fields");
+        }
+        Object value = evaluate(set.getValue());
+        ((LoxInstance) object).set(set.getName(), value);
+        return value;
     }
 
     private void checkNumberOperand(Token token, Object operand) {
