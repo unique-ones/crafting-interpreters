@@ -1,11 +1,9 @@
-package grupa.Interpreter;
+package grupa.Interpreter.Environment;
 
 import grupa.Interpreter.Exceptions.RuntimeError;
 import grupa.Scanner.Token;
-import grupa.Statements.LoxClass;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 public class LoxInstance {
@@ -21,7 +19,6 @@ public class LoxInstance {
             return fields.get(name.getLexeme());
         }
         throw new RuntimeError(name, "Undefined property '" + name.getLexeme() + "'.");
-
     }
 
     @Override

@@ -1,10 +1,8 @@
-package grupa.Statements;
+package grupa.Interpreter.Environment;
 
-import grupa.Expressions.Environment;
 import grupa.Expressions.Function;
 import grupa.Interpreter.Exceptions.ReturnException;
 import grupa.Interpreter.Interpreter;
-import grupa.Interpreter.LoxCallable;
 
 import java.util.List;
 

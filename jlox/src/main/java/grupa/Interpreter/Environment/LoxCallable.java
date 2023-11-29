@@ -1,4 +1,6 @@
-package grupa.Interpreter;
+package grupa.Interpreter.Environment;
+
+import grupa.Interpreter.Interpreter;
 
 import java.util.List;
 

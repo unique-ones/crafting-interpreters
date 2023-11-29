@@ -1,4 +1,4 @@
-package grupa.Expressions;
+package grupa.Interpreter.Environment;
 
 import grupa.Interpreter.Exceptions.RuntimeError;
 import grupa.Scanner.Token;

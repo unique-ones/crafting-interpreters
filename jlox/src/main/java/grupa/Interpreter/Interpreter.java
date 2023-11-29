@@ -1,6 +1,7 @@
 package grupa.Interpreter;
 
 import grupa.Expressions.*;
+import grupa.Interpreter.Environment.*;
 import grupa.Interpreter.Exceptions.BreakException;
 import grupa.Interpreter.Exceptions.ContinueException;
 import grupa.Interpreter.Exceptions.ReturnException;
@@ -332,6 +333,11 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
             return ((LoxInstance) object).get(expression.getName());
         }
         throw new RuntimeError(expression.getName(), "Can only use properties on instances");
+    }
+
+    @Override
+    public Object visitSetExpression(Set set) {
+        return null;
     }
 
     private void checkNumberOperand(Token token, Object operand) {

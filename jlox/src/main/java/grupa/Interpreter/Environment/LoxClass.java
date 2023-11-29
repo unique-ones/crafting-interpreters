@@ -1,8 +1,6 @@
-package grupa.Statements;
+package grupa.Interpreter.Environment;
 
 import grupa.Interpreter.Interpreter;
-import grupa.Interpreter.LoxCallable;
-import grupa.Interpreter.LoxInstance;
 
 import java.util.List;
 
@@ -16,8 +14,6 @@ public class LoxClass implements LoxCallable {
     public String getName() {
         return name;
     }
-
-
     @Override
     public String toString() {
         return "LoxClass{" +
