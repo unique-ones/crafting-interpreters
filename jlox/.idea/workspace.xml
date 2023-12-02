@@ -7,8 +7,19 @@
     <list default="true" id="3dc96a9f-add4-47b0-bc51-5c487506772a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/LoxInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/LoxInstance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/Environment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/LoxCallable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxCallable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/LoxClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/LoxFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Environment/LoxInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Exceptions/BreakException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Exceptions/BreakException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Exceptions/ContinueException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Exceptions/ContinueException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Exceptions/ReturnException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Exceptions/ReturnException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Exceptions/RuntimeError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Exceptions/RuntimeError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Lox.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/FunctionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/FunctionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,7 +105,7 @@
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/java/grupa/tools/" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="grupa.Interpreter.Exceptions.*" />
+          <option name="PATTERN" value="grupa.Runtime.Exceptions.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -146,14 +157,19 @@
           <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java</url>
           <line>309</line>
           <option name="timeStamp" value="132" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Interpreter/Interpreter.java</url>
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java</url>
           <line>57</line>
           <option name="timeStamp" value="133" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java</url>
+          <line>334</line>
+          <option name="timeStamp" value="137" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -161,6 +177,7 @@
       <pinned-members>
         <PinnedItemInfo parentTag="grupa.Statements.Function" memberName="body" />
         <PinnedItemInfo parentTag="grupa.Resolver.Resolver" memberName="scopes" />
+        <PinnedItemInfo parentTag="grupa.Statements.Print" memberName="expr" />
         <PinnedItemInfo parentTag="grupa.Expressions.Conditional" memberName="condition" />
         <PinnedItemInfo parentTag="grupa.Statements.While" memberName="body" />
         <PinnedItemInfo parentTag="grupa.Interpreter.Interpreter" memberName="environment" />

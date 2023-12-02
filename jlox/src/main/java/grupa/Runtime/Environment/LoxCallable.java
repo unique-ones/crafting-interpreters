@@ -1,6 +1,6 @@
-package grupa.Interpreter.Environment;
+package grupa.Runtime.Environment;
 
-import grupa.Interpreter.Interpreter;
+import grupa.Runtime.Interpreter;
 
 import java.util.List;
 

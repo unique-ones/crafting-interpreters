@@ -1,7 +1,7 @@
 package grupa.Resolver;
 
 import grupa.Expressions.*;
-import grupa.Interpreter.Interpreter;
+import grupa.Runtime.Interpreter;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Statements.*;
@@ -81,8 +81,22 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     public Void visitFunctionStatement(Function statement) {
         declare(statement.getName());
         define(statement.getName());
-        resolve(statement.getDeclaration());
+        resolveFunction(statement.getDeclaration(), FunctionType.FUNCTION);
         return null;
+    }
+
+    private void resolveFunction(grupa.Expressions.Function declaration, FunctionType functionType) {
+        FunctionType enclosingFunction = currentFunction;
+        currentFunction = functionType;
+        beginScope();
+        for (Token param : declaration.getParamters()) {
+            declare(param);
+            define(param);
+        }
+        resolve(declaration.getBody());
+        endScope();
+        currentFunction = enclosingFunction;
+
     }
 
 
@@ -99,6 +113,10 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     public Void visitClassStatement(Class statement) {
         declare(statement.getName());
         define(statement.getName());
+
+        for (Function function : statement.getMethods()) {
+            resolveFunction(function.getDeclaration(), FunctionType.METHOD);
+        }
         return null;
     }
 

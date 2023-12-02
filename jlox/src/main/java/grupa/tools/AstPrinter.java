@@ -1,7 +1,7 @@
 package grupa.tools;
 
 import grupa.Expressions.*;
-import grupa.Interpreter.Exceptions.RuntimeError;
+import grupa.Runtime.Exceptions.RuntimeError;
 
 public class AstPrinter implements ExprVisitor<String> {
 

@@ -1,6 +1,6 @@
-package grupa.Interpreter.Environment;
+package grupa.Runtime.Environment;
 
-import grupa.Interpreter.Exceptions.RuntimeError;
+import grupa.Runtime.Exceptions.RuntimeError;
 import grupa.Scanner.Token;
 
 import java.util.HashMap;
@@ -18,6 +18,8 @@ public class LoxInstance {
         if (fields.containsKey(name.getLexeme())) {
             return fields.get(name.getLexeme());
         }
+        LoxFunction method = klass.findMethod(name.getLexeme());
+        if (method != null) return method;
         throw new RuntimeError(name, "Undefined property '" + name.getLexeme() + "'.");
     }
 

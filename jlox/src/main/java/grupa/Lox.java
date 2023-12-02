@@ -2,8 +2,8 @@ package grupa;
 
 import grupa.Expressions.Expr;
 import grupa.Parser.Ast;
-import grupa.Interpreter.Interpreter;
-import grupa.Interpreter.Exceptions.RuntimeError;
+import grupa.Runtime.Interpreter;
+import grupa.Runtime.Exceptions.RuntimeError;
 import grupa.Resolver.Resolver;
 import grupa.Scanner.Scanner;
 import grupa.Scanner.Token;

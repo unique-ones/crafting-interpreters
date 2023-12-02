@@ -1,6 +1,6 @@
-package grupa.Interpreter.Environment;
+package grupa.Runtime.Environment;
 
-import grupa.Interpreter.Exceptions.RuntimeError;
+import grupa.Runtime.Exceptions.RuntimeError;
 import grupa.Scanner.Token;
 
 import java.util.HashMap;

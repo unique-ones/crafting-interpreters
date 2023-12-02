@@ -1,8 +1,7 @@
-package grupa.Interpreter.Exceptions;
+package grupa.Runtime.Exceptions;
 
 
 import grupa.Scanner.Token;
-import grupa.Scanner.TokenType;
 
 public class RuntimeError extends RuntimeException {
     private final Token token;

@@ -1,11 +1,11 @@
-package grupa.Interpreter;
+package grupa.Runtime;
 
 import grupa.Expressions.*;
-import grupa.Interpreter.Environment.*;
-import grupa.Interpreter.Exceptions.BreakException;
-import grupa.Interpreter.Exceptions.ContinueException;
-import grupa.Interpreter.Exceptions.ReturnException;
-import grupa.Interpreter.Exceptions.RuntimeError;
+import grupa.Runtime.Environment.*;
+import grupa.Runtime.Exceptions.BreakException;
+import grupa.Runtime.Exceptions.ContinueException;
+import grupa.Runtime.Exceptions.ReturnException;
+import grupa.Runtime.Exceptions.RuntimeError;
 import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
@@ -213,7 +213,12 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     @Override
     public Void visitClassStatement(Class statement) {
         environment.define(statement.getName().getLexeme(), null);
-        LoxClass klass = new LoxClass(statement.getName().getLexeme());
+        Map<String, LoxFunction> methods = new HashMap<>();
+        for (Function method : statement.getMethods()) {
+            LoxFunction loxFunction = new LoxFunction(method.getName().getLexeme(), method.getDeclaration(), environment);
+            methods.put(method.getName().getLexeme(), loxFunction);
+        }
+        LoxClass klass = new LoxClass(statement.getName().getLexeme(), methods);
         environment.assign(statement.getName(), klass);
         return null;
     }

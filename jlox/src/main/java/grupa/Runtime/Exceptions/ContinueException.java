@@ -1,4 +1,4 @@
-package grupa.Interpreter.Exceptions;
+package grupa.Runtime.Exceptions;
 
 public class ContinueException extends RuntimeException{
 }
