@@ -33,6 +33,7 @@ public class LoxInstance {
     public String toString() {
         return "LoxInstance{" +
                 "klass=" + klass +
+                ", fields=" + fields +
                 '}';
     }
 }

@@ -198,7 +198,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Void visitFunctionStatement(Function statement) {
-        LoxFunction function = new LoxFunction(statement.getName().getLexeme(), statement.getDeclaration(), environment);
+        LoxFunction function = new LoxFunction(statement.getName().getLexeme(), statement.getDeclaration(), environment, false);
         environment.define(statement.getName().getLexeme(), function);
         return null;
     }
@@ -215,7 +215,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         environment.define(statement.getName().getLexeme(), null);
         Map<String, LoxFunction> methods = new HashMap<>();
         for (Function method : statement.getMethods()) {
-            LoxFunction loxFunction = new LoxFunction(method.getName().getLexeme(), method.getDeclaration(), environment);
+            LoxFunction loxFunction = new LoxFunction(method.getName().getLexeme(), method.getDeclaration(), environment,method.getName().getLexeme().equals("init"));
             methods.put(method.getName().getLexeme(), loxFunction);
         }
         LoxClass klass = new LoxClass(statement.getName().getLexeme(), methods);
@@ -327,7 +327,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
 
     @Override
     public Object visitFunctionExpression(grupa.Expressions.Function expression) {
-        return new LoxFunction(null, expression, environment);
+        return new LoxFunction(null, expression, environment, false);
     }
 
     @Override

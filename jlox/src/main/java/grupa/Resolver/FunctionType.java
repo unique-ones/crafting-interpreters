@@ -1,5 +1,5 @@
 package grupa.Resolver;
 
 public enum FunctionType {
-    NONE, FUNCTION, METHOD
+    NONE, FUNCTION, METHOD, INITIALIZER
 }

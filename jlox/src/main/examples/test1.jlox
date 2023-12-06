@@ -1,5 +1,12 @@
 class Bacon {
+    init(){
+        print "lol";
+        return;
+        this.a=5;
+    }
+
     eat() {
+        print this.a;
         this.eatNow();
         print this.asd;
     }
@@ -7,6 +14,5 @@ class Bacon {
             print "aasdsad";
     }
 }
-var bacon=Bacon();
-bacon.asd=5;
-bacon.eat();
+ print Bacon();
+

@@ -107,7 +107,12 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         if (currentFunction == FunctionType.NONE) {
             Lox.error(statement.getKeyword(), "Can't return from top-level code");
         }
-        if (statement.getExpr() != null) resolve(statement.getExpr());
+        if (statement.getExpr() != null) {
+            if (currentFunction == FunctionType.INITIALIZER) {
+                Lox.error(statement.getKeyword(), "Can't return inside intializer");
+            }
+            resolve(statement.getExpr());
+        }
         return null;
     }
 
@@ -121,7 +126,11 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         //@TODO change boilerplate
         scopes.peek().put("this", new Variable(statement.getName(), VariableState.USED));
         for (Function function : statement.getMethods()) {
-            resolveFunction(function.getDeclaration(), FunctionType.METHOD);
+            FunctionType declaration = FunctionType.METHOD;
+            if (function.getName().getLexeme().equals("init")) {
+                declaration = FunctionType.INITIALIZER;
+            }
+            resolveFunction(function.getDeclaration(), declaration);
         }
         endScope();
         currentClass = enclosingClass;
