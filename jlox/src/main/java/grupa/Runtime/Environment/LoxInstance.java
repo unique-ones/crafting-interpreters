@@ -19,7 +19,9 @@ public class LoxInstance {
             return fields.get(name.getLexeme());
         }
         LoxFunction method = klass.findMethod(name.getLexeme());
-        if (method != null) return method;
+        //late binding happens here
+        //only bind method to instance when its needed
+        if (method != null) return method.bind(this);
         throw new RuntimeError(name, "Undefined property '" + name.getLexeme() + "'.");
     }
 

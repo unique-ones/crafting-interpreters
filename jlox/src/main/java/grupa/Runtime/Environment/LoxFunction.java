@@ -57,4 +57,11 @@ public class LoxFunction implements LoxCallable {
                 ", closure=" + closure +
                 '}';
     }
+
+    public Object bind(LoxInstance instance) {
+        Environment environment = new Environment(closure);
+        environment.define("this", instance);
+        //Maybe this crashes, we will see ;)
+        return new LoxFunction(this.name, this.declaration, environment);
+    }
 }

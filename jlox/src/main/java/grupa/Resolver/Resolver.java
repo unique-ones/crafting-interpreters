@@ -18,6 +18,8 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     private final Stack<Map<String, Variable>> scopes = new Stack<>();
 
     private FunctionType currentFunction = FunctionType.NONE;
+    private ClassType currentClass = ClassType.NONE;
+
 
     public Resolver(Interpreter interpreter) {
         this.interpreter = interpreter;
@@ -113,10 +115,17 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     public Void visitClassStatement(Class statement) {
         declare(statement.getName());
         define(statement.getName());
-
+        ClassType enclosingClass = currentClass;
+        currentClass = ClassType.CLASS;
+        beginScope();
+        //@TODO change boilerplate
+        scopes.peek().put("this", new Variable(statement.getName(), VariableState.USED));
         for (Function function : statement.getMethods()) {
             resolveFunction(function.getDeclaration(), FunctionType.METHOD);
         }
+        endScope();
+        currentClass = enclosingClass;
+
         return null;
     }
 
@@ -247,6 +256,16 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
     public Void visitSetExpression(Set set) {
         resolve(set.getValue());
         resolve(set.getObject());
+        return null;
+    }
+
+    @Override
+    public Void visitThisExpression(This expression) {
+        if (currentClass == ClassType.NONE) {
+            Lox.error(expression.getKeyword(), "Can't use 'this' outside of a class");
+            return null;
+        }
+        resolveLocal(expression, expression.getKeyword(), true);
         return null;
     }
 

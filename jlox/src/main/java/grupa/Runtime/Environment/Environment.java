@@ -55,6 +55,9 @@ public class Environment {
         return ancestor(distance).values.get(name);
     }
 
+    public void assignAt(Integer distance, Token name, Object value) {
+        ancestor(distance).values.put(name.getLexeme(), value);
+    }
     private Environment ancestor(Integer distance) {
         Environment environment = this;
         for (int i = 0; i < distance; i++) {
@@ -63,7 +66,5 @@ public class Environment {
         return environment;
     }
 
-    public void assignAt(Integer distance, Token name, Object value) {
-        ancestor(distance).values.put(name.getLexeme(), value);
-    }
+
 }

@@ -1,17 +1,17 @@
 package grupa.Runtime;
 
 import grupa.Expressions.*;
+import grupa.Lox;
 import grupa.Runtime.Environment.*;
 import grupa.Runtime.Exceptions.BreakException;
 import grupa.Runtime.Exceptions.ContinueException;
 import grupa.Runtime.Exceptions.ReturnException;
 import grupa.Runtime.Exceptions.RuntimeError;
-import grupa.Lox;
 import grupa.Scanner.Token;
 import grupa.Scanner.TokenType;
-import grupa.Statements.*;
 import grupa.Statements.Class;
 import grupa.Statements.Function;
+import grupa.Statements.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -278,7 +278,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         return lookUpVariable(expression.getName(), expression);
     }
 
-    private Object lookUpVariable(Token name, Variable expression) {
+    private Object lookUpVariable(Token name, Expr expression) {
         Integer distance = locals.get(expression);
         if (distance != null) {
             return environment.getAt(distance, name.getLexeme());
@@ -349,6 +349,11 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         Object value = evaluate(set.getValue());
         ((LoxInstance) object).set(set.getName(), value);
         return value;
+    }
+
+    @Override
+    public Object visitThisExpression(This expression) {
+        return lookUpVariable(expression.getKeyword(), expression);
     }
 
     private void checkNumberOperand(Token token, Object operand) {

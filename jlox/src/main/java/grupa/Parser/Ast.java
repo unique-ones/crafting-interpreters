@@ -388,6 +388,7 @@ public class Ast {
         if (match(TokenType.NIL)) return new Literal(null);
         if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLiteral());
         if (match(TokenType.IDENTIFIER)) return new Variable(previous());
+        if (match(TokenType.THIS)) return new This(previous());
         if (match(TokenType.FUN)) return funBody("function");
         if (match(TokenType.LEFT_PAREN)) {
             Expr expr = expression();
