@@ -132,6 +132,9 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
             }
             resolveFunction(function.getDeclaration(), declaration);
         }
+        for (Function function : statement.getClassMethods()) {
+            resolveFunction(function.getDeclaration(), FunctionType.METHOD);
+        }
         endScope();
         currentClass = enclosingClass;
 

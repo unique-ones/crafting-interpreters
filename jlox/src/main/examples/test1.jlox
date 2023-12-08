@@ -1,18 +1,7 @@
-class Bacon {
-    init(){
-        print "lol";
-        return;
-        this.a=5;
-    }
-
-    eat() {
-        print this.a;
-        this.eatNow();
-        print this.asd;
-    }
-    eatNow() {
-            print "aasdsad";
-    }
+class Math {
+  class square(n) {
+    return n * n;
+  }
 }
- print Bacon();
 
+print Math.square(3); // Prints "9".

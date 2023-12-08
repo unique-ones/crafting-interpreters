@@ -10,6 +10,7 @@ public class LoxInstance {
     private LoxClass klass;
     private final Map<String, Object> fields = new HashMap<>();
 
+
     public LoxInstance(LoxClass klass) {
         this.klass = klass;
     }

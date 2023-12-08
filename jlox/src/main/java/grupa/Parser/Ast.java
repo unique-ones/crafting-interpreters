@@ -65,11 +65,12 @@ public class Ast {
         consume(TokenType.LEFT_BRACE, "Expcted '{' before class body");
 
         List<grupa.Statements.Function> methods = new ArrayList<>();
+        List<grupa.Statements.Function> classMethods = new ArrayList<>();
         while (!check(TokenType.RIGHT_BRACE) && !isAtEnd()) {
-            methods.add(funDeclaration("method"));
+            (match(TokenType.CLASS) ? classMethods : methods).add(funDeclaration("method"));
         }
         consume(TokenType.RIGHT_BRACE, "Epected '}' after class body");
-        return new Class(name, methods);
+        return new Class(name, methods, classMethods);
     }
 
     private grupa.Statements.Function funDeclaration(String function) {

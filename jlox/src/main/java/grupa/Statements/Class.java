@@ -9,9 +9,13 @@ public class Class extends Stmt {
     private final Token name;
     private final List<Function> methods;
 
-    public Class(Token name, List<Function> methods) {
+    private final List<Function> classMethods;
+
+
+    public Class(Token name, List<Function> methods, List<Function> classMethods) {
         this.name = name;
         this.methods = methods;
+        this.classMethods = classMethods;
     }
 
     public Token getName() {
@@ -20,6 +24,10 @@ public class Class extends Stmt {
 
     public List<Function> getMethods() {
         return methods;
+    }
+
+    public List<Function> getClassMethods() {
+        return classMethods;
     }
 
     @Override
