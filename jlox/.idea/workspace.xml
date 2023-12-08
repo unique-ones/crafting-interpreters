@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dc32d6de-a441-45b9-81a0-18e0b87b19ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/FunctionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/FunctionType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxInstance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,12 +39,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Lox" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="grupa.Lox" />

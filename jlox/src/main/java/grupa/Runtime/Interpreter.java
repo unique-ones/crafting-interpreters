@@ -121,7 +121,6 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
                 return isEqual(left, right);
             case BANGEQUAL:
                 return !isEqual(left, right);
-
         }
         return null;
     }
@@ -215,7 +214,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         environment.define(statement.getName().getLexeme(), null);
         Map<String, LoxFunction> methods = new HashMap<>();
         for (Function method : statement.getMethods()) {
-            LoxFunction loxFunction = new LoxFunction(method.getName().getLexeme(), method.getDeclaration(), environment,method.getName().getLexeme().equals("init"));
+            LoxFunction loxFunction = new LoxFunction(method.getName().getLexeme(), method.getDeclaration(), environment, method.getName().getLexeme().equals("init"));
             methods.put(method.getName().getLexeme(), loxFunction);
         }
         LoxClass klass = new LoxClass(statement.getName().getLexeme(), methods);
