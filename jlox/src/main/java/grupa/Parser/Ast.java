@@ -79,18 +79,20 @@ public class Ast {
     }
 
     private Function funBody(String kind) {
-        consume(TokenType.LEFT_PAREN, "Expected '(' after " + kind + " name.");
-        List<Token> parameters = new ArrayList<>();
-
-        if (!check(TokenType.RIGHT_PAREN)) {
-            do {
-                if (parameters.size() >= 255) {
-                    error(peek(), "Cannot have more than 255 params");
-                }
-                parameters.add(consume(TokenType.IDENTIFIER, "Expected parameter name."));
-            } while (match(TokenType.COMMA));
+        List<Token> parameters = null;
+        if (check(TokenType.LEFT_PAREN)) {
+            parameters= new ArrayList<>();
+            consume(TokenType.LEFT_PAREN, "Expected '(' after " + kind + " name.");
+            if (!check(TokenType.RIGHT_PAREN)) {
+                do {
+                    if (parameters.size() >= 255) {
+                        error(peek(), "Cannot have more than 255 params");
+                    }
+                    parameters.add(consume(TokenType.IDENTIFIER, "Expected parameter name."));
+                } while (match(TokenType.COMMA));
+            }
+            consume(TokenType.RIGHT_PAREN, "Expected ')' after parameters");
         }
-        consume(TokenType.RIGHT_PAREN, "Expected ')' after parameters");
         consume(TokenType.LEFT_BRACE, "Expected '{' before " + kind + " body.");
         List<Stmt> body = block();
         return new Function(parameters, body);

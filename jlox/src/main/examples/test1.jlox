@@ -1,7 +1,14 @@
 class Math {
-  class square(n) {
-    return n * n;
+  init(number){
+    this.number=number;
+  }
+  class printDescription(){
+    print "This class handles basic math operations";
+  }
+  number100{
+    return this.number*100;
   }
 }
 
-print Math.square(3); // Prints "9".
+print Math(2).number100;
+Math.printDescription();

@@ -6,12 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="dc32d6de-a441-45b9-81a0-18e0b87b19ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxInstance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxInstance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Class.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,21 +97,16 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java</url>
-          <line>51</line>
-          <option name="timeStamp" value="6" />
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java</url>
+          <line>342</line>
+          <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxFunction.java</url>
-          <line>42</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java</url>
+          <line>347</line>
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="Application">
-        <watch expression="stmts.get(0)" />
-      </configuration>
-    </watches-manager>
   </component>
 </project>

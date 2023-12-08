@@ -213,6 +213,7 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
     public Void visitClassStatement(Class statement) {
         environment.define(statement.getName().getLexeme(), null);
         Map<String, LoxFunction> classMethods = new HashMap<>();
+
         for (Function classMethod : statement.getClassMethods()) {
             LoxFunction loxFunction = new LoxFunction(classMethod.getName().getLexeme(), classMethod.getDeclaration(), environment, classMethod.getName().getLexeme().equals("init"));
             classMethods.put(classMethod.getName().getLexeme(), loxFunction);
@@ -243,7 +244,6 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         }
 
     }
-
     @Override
     public Object visitGroupingExpression(Grouping expression) {
         return evaluate(expression.getExpression());
@@ -341,8 +341,13 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         Object object = evaluate(expression.getObject());
 
         if (object instanceof LoxInstance) {
-            return ((LoxInstance) object).get(expression.getName());
+            Object result = ((LoxInstance) object).get(expression.getName());
+            if (result instanceof LoxFunction && ((LoxFunction) result).isGetter()) {
+                result = ((LoxFunction) result).call(this, null);
+            }
+            return result;
         }
+
         throw new RuntimeError(expression.getName(), "Can only use properties on instances");
     }
 

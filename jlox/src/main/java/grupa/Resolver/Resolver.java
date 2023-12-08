@@ -91,14 +91,15 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         FunctionType enclosingFunction = currentFunction;
         currentFunction = functionType;
         beginScope();
-        for (Token param : declaration.getParamters()) {
-            declare(param);
-            define(param);
+        if (declaration.getParamters() != null) {
+            for (Token param : declaration.getParamters()) {
+                declare(param);
+                define(param);
+            }
         }
         resolve(declaration.getBody());
         endScope();
         currentFunction = enclosingFunction;
-
     }
 
 

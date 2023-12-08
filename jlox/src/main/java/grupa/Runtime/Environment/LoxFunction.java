@@ -42,8 +42,10 @@ public class LoxFunction implements LoxCallable {
         try {
             Environment environment = new Environment(this.closure);
 
-            for (int i = 0; i < this.declaration.getParamters().size(); i++) {
-                environment.define(this.declaration.getParamters().get(i).getLexeme(), args.get(i));
+            if (this.declaration.getParamters() != null) {
+                for (int i = 0; i < this.declaration.getParamters().size(); i++) {
+                    environment.define(this.declaration.getParamters().get(i).getLexeme(), args.get(i));
+                }
             }
             interpreter.executeBlock(this.declaration.getBody(), environment);
         } catch (ReturnException e) {
@@ -53,6 +55,10 @@ public class LoxFunction implements LoxCallable {
         }
         if (isInitializer) return closure.getAt(0, "this");
         return null;
+    }
+
+    public boolean isGetter() {
+        return this.declaration.getParamters() == null;
     }
 
     @Override
