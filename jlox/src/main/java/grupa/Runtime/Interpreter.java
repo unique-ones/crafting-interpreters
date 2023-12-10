@@ -30,10 +30,8 @@ public class Interpreter implements ExprVisitor<Object>, StmtVisitor<Void> {
         return environment;
     }
 
-    public Interpreter() {
-    }
 
-    public Interpreter(Environment globals) {
+    public Interpreter() {
         this.globals.define("clock", new LoxCallable() {
             @Override
             public int getArity() {

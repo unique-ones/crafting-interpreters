@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dc32d6de-a441-45b9-81a0-18e0b87b19ce" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/Super.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Expressions/ExprVisitor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Parser/Ast.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/ClassType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/ClassType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Resolver/Resolver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/Environment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/Environment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Statements/Class.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Statements/Class.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/tools/AstPrinter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,8 +96,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java</url>
-          <line>392</line>
-          <option name="timeStamp" value="3" />
+          <line>387</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

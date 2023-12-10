@@ -61,7 +61,6 @@ public class LoxClass extends LoxInstance implements LoxCallable {
         }
         if (superClass != null)
             return superClass.findMethod(lexeme);
-
         return null;
     }
 }
