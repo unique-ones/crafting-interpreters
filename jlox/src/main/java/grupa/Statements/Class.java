@@ -1,5 +1,6 @@
 package grupa.Statements;
 
+import grupa.Expressions.Variable;
 import grupa.Scanner.Token;
 
 import java.util.ArrayList;
@@ -9,13 +10,16 @@ public class Class extends Stmt {
     private final Token name;
     private final List<Function> methods;
 
+    private final Variable superClass;
+
     private final List<Function> classMethods;
 
 
-    public Class(Token name, List<Function> methods, List<Function> classMethods) {
+    public Class(Token name, List<Function> methods, List<Function> classMethods, Variable superClass) {
         this.name = name;
         this.methods = methods;
         this.classMethods = classMethods;
+        this.superClass = superClass;
     }
 
     public Token getName() {
@@ -28,6 +32,10 @@ public class Class extends Stmt {
 
     public List<Function> getClassMethods() {
         return classMethods;
+    }
+
+    public Variable getSuperClass() {
+        return superClass;
     }
 
     @Override

@@ -9,12 +9,21 @@ import java.util.Map;
 public class LoxClass extends LoxInstance implements LoxCallable {
     private final String name;
     private final Map<String, LoxFunction> methods;
+    private final LoxClass superClass;
 
-
-    public LoxClass(LoxClass metaClass,String name, Map<String, LoxFunction> methods) {
+    public LoxClass(LoxClass metaClass, String name, Map<String, LoxFunction> methods, LoxClass superClass) {
         super(metaClass);
+        this.superClass = superClass;
         this.name = name;
         this.methods = methods;
+    }
+
+    public Map<String, LoxFunction> getMethods() {
+        return methods;
+    }
+
+    public LoxClass getSuperClass() {
+        return superClass;
     }
 
     public String getName() {
@@ -50,6 +59,9 @@ public class LoxClass extends LoxInstance implements LoxCallable {
         if (methods.containsKey(lexeme)) {
             return this.methods.get(lexeme);
         }
+        if (superClass != null)
+            return superClass.findMethod(lexeme);
+
         return null;
     }
 }

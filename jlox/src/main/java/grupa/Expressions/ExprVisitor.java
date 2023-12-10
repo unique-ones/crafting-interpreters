@@ -26,4 +26,8 @@ public interface ExprVisitor<R> {
     R visitSetExpression(Set set);
 
     R visitThisExpression(This expression);
+
+    R visitSuperExpression(Super expression);
+
+
 }

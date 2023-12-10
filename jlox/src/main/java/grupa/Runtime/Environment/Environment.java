@@ -18,6 +18,10 @@ public class Environment {
         this.enclosing = enclosing;
     }
 
+    public Environment getEnclosing() {
+        return enclosing;
+    }
+
     private final Map<String, Object> values = new HashMap<>();
 
     public void define(String name, Object value) {
@@ -58,6 +62,7 @@ public class Environment {
     public void assignAt(Integer distance, Token name, Object value) {
         ancestor(distance).values.put(name.getLexeme(), value);
     }
+
     private Environment ancestor(Integer distance) {
         Environment environment = this;
         for (int i = 0; i < distance; i++) {

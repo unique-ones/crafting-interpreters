@@ -119,10 +119,23 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
 
     @Override
     public Void visitClassStatement(Class statement) {
-        declare(statement.getName());
-        define(statement.getName());
         ClassType enclosingClass = currentClass;
         currentClass = ClassType.CLASS;
+
+        declare(statement.getName());
+        define(statement.getName());
+        if (statement.getSuperClass() != null && statement.getName().getLexeme().equals(statement.getSuperClass().getName().getLexeme())) {
+            Lox.error(statement.getName(), "A class can't inherit from itself.");
+        }
+
+        //maybe I will get some trouble here? :/
+        if (statement.getSuperClass() != null) {
+            currentClass = ClassType.SUBCLASS;
+            resolve(statement.getSuperClass());
+            beginScope();
+            scopes.peek().put("super", new Variable(statement.getSuperClass().getName(), VariableState.USED));
+        }
+
         beginScope();
         //@TODO change boilerplate
         scopes.peek().put("this", new Variable(statement.getName(), VariableState.USED));
@@ -137,6 +150,7 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
             resolveFunction(function.getDeclaration(), FunctionType.METHOD);
         }
         endScope();
+        if (statement.getSuperClass() != null) endScope();
         currentClass = enclosingClass;
 
         return null;
@@ -277,6 +291,17 @@ public class Resolver implements StmtVisitor<Void>, ExprVisitor<Void> {
         if (currentClass == ClassType.NONE) {
             Lox.error(expression.getKeyword(), "Can't use 'this' outside of a class");
             return null;
+        }
+        resolveLocal(expression, expression.getKeyword(), true);
+        return null;
+    }
+
+    @Override
+    public Void visitSuperExpression(Super expression) {
+        if (currentClass == ClassType.NONE) {
+            Lox.error(expression.getKeyword(), "Can't use 'super' outside of class");
+        } else if (currentClass != ClassType.SUBCLASS) {
+            Lox.error(expression.getKeyword(), "Can't use 'super' in a class with no superclass");
         }
         resolveLocal(expression, expression.getKeyword(), true);
         return null;

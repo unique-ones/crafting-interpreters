@@ -1,14 +1,13 @@
-class Math {
-  init(number){
-    this.number=number;
-  }
-  class printDescription(){
-    print "This class handles basic math operations";
-  }
-  number100{
-    return this.number*100;
-  }
+class Vehicle {
+    drive() {
+        print "Brum Brum";
+    }
 }
+class Car < Vehicle {
+    drive(){
+        print "brbr";
+        super.drive();
+    }
 
-print Math(2).number100;
-Math.printDescription();
+}
+Car().drive();

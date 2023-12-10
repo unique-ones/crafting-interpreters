@@ -62,6 +62,10 @@ public class Ast {
 
     private Stmt classDeclaration() {
         Token name = consume(TokenType.IDENTIFIER, "Expected class name");
+        Variable superClass = null;
+        if (match(TokenType.LESS)) {
+            superClass = new Variable(consume(TokenType.IDENTIFIER, "Expected superclass name after '<'"));
+        }
         consume(TokenType.LEFT_BRACE, "Expcted '{' before class body");
 
         List<grupa.Statements.Function> methods = new ArrayList<>();
@@ -70,7 +74,7 @@ public class Ast {
             (match(TokenType.CLASS) ? classMethods : methods).add(funDeclaration("method"));
         }
         consume(TokenType.RIGHT_BRACE, "Epected '}' after class body");
-        return new Class(name, methods, classMethods);
+        return new Class(name, methods, classMethods, superClass);
     }
 
     private grupa.Statements.Function funDeclaration(String function) {
@@ -81,7 +85,7 @@ public class Ast {
     private Function funBody(String kind) {
         List<Token> parameters = null;
         if (check(TokenType.LEFT_PAREN)) {
-            parameters= new ArrayList<>();
+            parameters = new ArrayList<>();
             consume(TokenType.LEFT_PAREN, "Expected '(' after " + kind + " name.");
             if (!check(TokenType.RIGHT_PAREN)) {
                 do {
@@ -246,9 +250,7 @@ public class Ast {
         return assignment();
     }
 
-
     private Expr assignment() {
-
         Expr expr = condition();
         if (match(TokenType.EQUAL)) {
             Token equals = previous();
@@ -392,6 +394,13 @@ public class Ast {
         if (match(TokenType.NUMBER, TokenType.STRING)) return new Literal(previous().getLiteral());
         if (match(TokenType.IDENTIFIER)) return new Variable(previous());
         if (match(TokenType.THIS)) return new This(previous());
+        if (match(TokenType.SUPER)) {
+            Token keyword = previous();
+            consume(TokenType.DOT, "Expected '.' after super keyword");
+            Token method = consume(TokenType.IDENTIFIER, "Expect superclass method");
+            return new Super(keyword, method);
+        }
+        ;
         if (match(TokenType.FUN)) return funBody("function");
         if (match(TokenType.LEFT_PAREN)) {
             Expr expr = expression();
