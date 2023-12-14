@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dc32d6de-a441-45b9-81a0-18e0b87b19ce" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/examples/test1.jlox" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/examples/test1.jlox" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Environment/LoxClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/grupa/Runtime/Interpreter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
