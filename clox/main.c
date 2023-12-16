@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "chunk.h"
-#include "debug.h"
+#include "bytecode/chunk.h"
+#include "bytecode/debug/debug.h"
 #include "common.h"
 
 int main(int argc, const char* argv[]) {

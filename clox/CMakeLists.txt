@@ -5,12 +5,12 @@ set(CMAKE_C_STANDARD 17)
 
 add_executable(clox main.c
         common.h
-        chunk.h
-        chunk.c
-        memory.c
-        memory.h
-        debug.c
-        debug.h
-        values.c
-        values.h
+        bytecode/chunk.h
+        bytecode/chunk.c
+        memory_operations/memory.c
+        memory_operations/memory.h
+        bytecode/debug/debug.c
+        bytecode/debug/debug.h
+        instructions/values.c
+        instructions/values.h
 )
