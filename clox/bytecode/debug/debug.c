@@ -21,6 +21,12 @@ void dissembleChunk(Chunk* chunk, const char* name) {
 int dissembleInstruction(Chunk* chunk, int offset) {
     // print offset with 4 minimum field width
     printf("%04d ", offset);
+    if(offset >0 && chunk->lines[offset]== chunk->lines[offset-1]) {
+        printf("    | ");
+    }
+    else {
+        printf("%4d ", chunk->lines[offset]);
+    }
     uint8_t instruction = chunk->code[offset];
     switch (instruction) {
         case OP_CONSTANT:
@@ -37,7 +43,7 @@ int constantInstruction(char* name, Chunk* chunk, int offset) {
     //Get one-byte constant index operand, which is directly stored after 'OP_CONSTANT'
     uint8_t constant_index = chunk->code[offset + 1];
     printf("%-16s %4d ", name, constant_index);
-    printValue(&chunk->constants.values[constant_index]);
+    printValue(chunk->constants.values[constant_index]);
     printf("\n");
     return offset + 2;
 }
