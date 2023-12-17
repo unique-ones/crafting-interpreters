@@ -9,12 +9,21 @@ typedef enum {
     OP_RETURN,
 } OpCode;
 
+//line struct containing line and corresponding offset of the code
+typedef struct {
+    int offset;
+    int line;
+}CodeLine;
+
+
 //@TODO change line count to smth. less memory hungry
 typedef struct {
     int count;
     int capacity;
     uint8_t* code;
-    int* lines;
+    int lineCount;
+    int lineCapacity;
+    CodeLine* code_line;
     ValueArray constants;
 } Chunk;
 
@@ -24,7 +33,8 @@ void writeChunk(Chunk* chunk, uint8_t byte, int line);
 
 int addConstant(Chunk* chunk, Value value);
 
-
 void freeChunk(Chunk* chunk);
+
+int getLine(Chunk* chunk, int offset);
 
 #endif
