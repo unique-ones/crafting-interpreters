@@ -32,6 +32,23 @@ void writeChunk(Chunk* chunk, uint8_t byte, int line) {
     code_line->offset = chunk->count - 1;
 }
 
+//writing constant has own method, to also storing numbers up to 24bit
+void writeConstant(Chunk* chunk, Value value, int line) {
+    int index_constant = addConstant(chunk, value);
+    //8bit implementation
+    if (index_constant < 256) {
+        writeChunk(chunk, OP_CONSTANT, line);
+        writeChunk(chunk, index_constant, line);
+        return;
+    }
+    //24bit implementation 3*8bit calls
+    writeChunk(chunk, OP_CONSTANT_LONG, line);
+    writeChunk(chunk, (uint8_t)(index_constant & 0xff), line);
+    writeChunk(chunk, (uint8_t)((index_constant >> 8) & 0xff), line);
+    writeChunk(chunk, (uint8_t)((index_constant >> 16) & 0xff), line);
+
+}
+
 void freeChunk(Chunk* chunk) {
     FREE_ARRAY(uint8_t, chunk->code, chunk->capacity);
     FREE_ARRAY(CodeLine, chunk->code_line, chunk->lineCapacity);

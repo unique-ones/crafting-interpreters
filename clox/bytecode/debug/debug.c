@@ -7,6 +7,9 @@ int simpleInstruction(char*, int);
 
 int constantInstruction(char*, Chunk*, int);
 
+int constantLongInstruction(char*, Chunk*, int);
+
+
 //function to dissemble one Chunk
 void dissembleChunk(Chunk* chunk, const char* name) {
     //Also prints header of chunk in order to knwo which chunk we are looking at
@@ -30,6 +33,8 @@ int dissembleInstruction(Chunk* chunk, int offset) {
     switch (instruction) {
         case OP_CONSTANT:
             return constantInstruction("OP_CONSTANT", chunk, offset);
+        case OP_CONSTANT_LONG:
+            return constantLongInstruction("OP_CONSTANT_LONG", chunk, offset);
         case OP_RETURN:
             return simpleInstruction("OP_RETURN", offset);
         default:
@@ -45,6 +50,17 @@ int constantInstruction(char* name, Chunk* chunk, int offset) {
     printValue(chunk->constants.values[constant_index]);
     printf("\n");
     return offset + 2;
+}
+
+int constantLongInstruction(char* name, Chunk* chunk, int offset) {
+    //Get one-byte constant index operand, which is directly stored after 'OP_CONSTANT'
+    int constant_index = (chunk->code[offset + 1]) |
+                              (chunk->code[offset + 2] << 8) |
+                              (chunk->code[offset + 3] << 16);
+    printf("%-16s %4d ", name, constant_index);
+    printValue(chunk->constants.values[constant_index]);
+    printf("\n");
+    return offset + 4;
 }
 
 int simpleInstruction(char* name, int offset) {

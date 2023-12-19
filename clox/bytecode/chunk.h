@@ -6,6 +6,7 @@
 
 typedef enum {
     OP_CONSTANT,
+    OP_CONSTANT_LONG,
     OP_RETURN,
 } OpCode;
 
@@ -13,7 +14,7 @@ typedef enum {
 typedef struct {
     int offset;
     int line;
-}CodeLine;
+} CodeLine;
 
 
 //@TODO change line count to smth. less memory hungry
@@ -30,6 +31,8 @@ typedef struct {
 void initChunk(Chunk* chunk);
 
 void writeChunk(Chunk* chunk, uint8_t byte, int line);
+
+void writeConstant(Chunk* chunk, Value value, int line);
 
 int addConstant(Chunk* chunk, Value value);
 
