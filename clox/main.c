@@ -14,7 +14,9 @@ int main(int argc, const char* argv[]) {
     }
     writeChunk(&chunk, OP_RETURN, 123);
     writeChunk(&chunk, OP_RETURN, 123);
-    dissembleChunk(&chunk, "test chunk");
+   // dissembleChunk(&chunk, "test chunk");
+    interpret(&chunk);
+    freeVM();
     freeChunk(&chunk);
     return 0;
 }

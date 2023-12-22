@@ -56,14 +56,13 @@ void freeChunk(Chunk* chunk) {
     initChunk(chunk);
 }
 
-
 int addConstant(Chunk* chunk, Value value) {
     writeValueArray(&chunk->constants, value);
     return chunk->constants.count - 1;
 }
 
 //using binary search to find corresponding line struct
-//we can assume that array is sorted, as the line car only increment during compiling
+//we can assume that array is sorted, as the line can only increment during compiling
 int getLine(Chunk* chunk, int offset) {
     int start = 0;
     int end = chunk->lineCount - 1;

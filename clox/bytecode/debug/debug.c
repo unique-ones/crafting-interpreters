@@ -55,8 +55,8 @@ int constantInstruction(char* name, Chunk* chunk, int offset) {
 int constantLongInstruction(char* name, Chunk* chunk, int offset) {
     //Get one-byte constant index operand, which is directly stored after 'OP_CONSTANT'
     int constant_index = (chunk->code[offset + 1]) |
-                              (chunk->code[offset + 2] << 8) |
-                              (chunk->code[offset + 3] << 16);
+                         (chunk->code[offset + 2] << 8) |
+                         (chunk->code[offset + 3] << 16);
     printf("%-16s %4d ", name, constant_index);
     printValue(chunk->constants.values[constant_index]);
     printf("\n");
