@@ -1,6 +1,7 @@
 #include "vm.h"
 #include "../common.h"
 #include <stdio.h>
+#include "..//bytecode/chunk.h"
 #include "../bytecode/debug/debug.h"
 
 //one global VM so I dont haveto pass it too all functions
@@ -114,8 +115,7 @@ do{\
 #undef BINARY_OP
 }
 
-InterpretResult interpret(Chunk* chunk) {
-    vm.chunk = chunk;
-    vm.ip = vm.chunk->code;
-    return run();
+InterpretResult interpret(const char* source) {
+    compile(source);
+    return INTERPRET_OK;
 }

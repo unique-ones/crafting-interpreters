@@ -13,6 +13,10 @@ add_executable(clox main.c
         bytecode/debug/debug.h
         instructions/values.c
         instructions/values.h
-        virtuel_machine/vm.c
-        virtuel_machine/vm.h
+        virtual_machine/vm.c
+        virtual_machine/vm.h
+        compiler/compiler.c
+        compiler/compiler.h
+        scanner/scanner.c
+        scanner/scanner.h
 )
