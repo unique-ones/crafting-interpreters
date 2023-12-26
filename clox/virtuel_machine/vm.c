@@ -6,20 +6,28 @@
 //one global VM so I dont haveto pass it too all functions
 VM vm;
 
+// I decided to not free stack
 void resetStack(void) {
-    vm.stackTop = vm.stack;
+    vm.stackCount = 0;
 }
 
 void push(Value value) {
-    *vm.stackTop = value;
-    vm.stackTop++;
+    if (vm.stackCapacity < vm.stackCount + 1) {
+        int oldCapacity = vm.stackCapacity;
+        vm.stackCapacity = GROW_CAPACITY(oldCapacity);
+        vm.stack = GROW_ARRAY(Value, vm.stack, oldCapacity, vm.stackCapacity);
+    }
+    vm.stack[vm.stackCount] = value;
+    vm.stackCount++;
 }
 
 Value pop() {
-    return *--vm.stackTop;
+    return vm.stack[--vm.stackCount];
 }
 
 void initVM() {
+    vm.stackCapacity = 0;
+    vm.stack = NULL;
     resetStack();
 }
 
@@ -55,7 +63,7 @@ do{\
         //debug instruction right before execution
 # ifdef DEBUG_TRACE_EXECUTION
         printf("        ");
-        for (Value* slot = vm.stack; slot < vm.stackTop; slot++) {
+        for (Value* slot = vm.stack; slot < vm.stack + vm.stackCount; slot++) {
             printf("[ ");
             printValue(*slot);
             printf(" ]");

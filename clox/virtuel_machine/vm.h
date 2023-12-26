@@ -1,7 +1,6 @@
 #ifndef clox_vm_h
 #define clox_vm_h
 #include "../bytecode/chunk.h"
-#define STACK_MAX 256
 
 
 typedef struct {
@@ -9,8 +8,9 @@ typedef struct {
     //we is pointer as it i faster than look up an array with integer index
     uint8_t* ip; //refers to "instruction pointer"
     //Stack of values beeing executed
-    Value stack[STACK_MAX];
-    Value* stackTop;
+    int stackCapacity;
+    int stackCount;
+    Value* stack;
 } VM;
 
 
