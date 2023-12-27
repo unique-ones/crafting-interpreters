@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "..//bytecode/chunk.h"
 #include "../bytecode/debug/debug.h"
+#include "../compiler/compiler.h"
 
 //one global VM so I dont haveto pass it too all functions
 VM vm;
